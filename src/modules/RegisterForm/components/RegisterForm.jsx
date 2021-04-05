@@ -6,7 +6,7 @@ import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const [registerDone, setRegisterDone] = React.useState(true);
+  const [registerDone, setRegisterDone] = React.useState(false);
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
