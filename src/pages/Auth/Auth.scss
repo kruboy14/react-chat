@@ -1,0 +1,58 @@
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__content {
+    min-width: 430px;
+  }
+  &__top {
+    text-align: center;
+    margin-bottom: 50px;
+    h2 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 21px;
+      letter-spacing: 0.1px;
+      opacity: 0.5;
+    }
+  }
+  .block {
+    max-width: 430px;
+    width: 100%;
+    .button {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+  }
+
+  &__register-link {
+    text-align: center;
+    display: block;
+    color: #adadad;
+    font-size: 16px;
+    letter-spacing: 0.1px;
+  }
+  &__success-block {
+    text-align: center;
+    padding-bottom: 70px;
+    padding-top: 40px;
+    p {
+      color: #adadad;
+    }
+  }
+  &__success__icon {
+    margin-bottom: 10px;
+  }
+
+  .login-form-forgot {
+    float: right;
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}
