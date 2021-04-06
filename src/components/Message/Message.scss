@@ -11,7 +11,7 @@
   }
   &__avatar{
    margin-right: 13px;
-   margin-bottom: 20px;
+   margin-bottom: 14px;
     img{
       border-radius: 50%;
       width: 33px;
@@ -21,6 +21,10 @@
   &__content{
     max-width: 440px;
   
+  }
+  &__item{
+    display: flex;
+    flex-direction: column;
   }
   &__bubble{
     display: inline-block;
@@ -36,6 +40,21 @@
   &__text{
     line-height: 20px;
   }
+  
+  &__attachments{
+    display: flex;
+    &__item{
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    img{
+     width: 45px;
+     height: 45px;
+     border-radius: 8px;
+      
+    }
+  }
+
   &__date{
     display: block;
     font-size: 12px;
