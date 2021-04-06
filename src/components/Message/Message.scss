@@ -1,9 +1,14 @@
 @import '~styles/variables';
 
 .message{
+  $self: &;
   display: flex;
   align-items: flex-end;
-  max-width: 440px;
+  margin-bottom: 15px;
+  &__checkedTick {
+    
+    margin-bottom: 20px;
+  }
   &__avatar{
    margin-right: 13px;
    margin-bottom: 20px;
@@ -14,6 +19,7 @@
     }
   }
   &__content{
+    max-width: 440px;
   
   }
   &__bubble{
@@ -24,6 +30,7 @@
     border-radius: 12px 12px 12px 0;
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
     margin-bottom: 8px;
+    margin-right: 8px;
   
   }
   &__text{
@@ -33,5 +40,28 @@
     display: block;
     font-size: 12px;
     opacity: .4;
+  }
+
+  &-isme{
+   display: flex;
+   flex-direction: row-reverse;
+   #{$self}__bubble {
+     background-color: #fff;
+     border: 1px solid #ececec;
+     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 12px 12px 0 12px;
+    color: $black;
+    margin-right: 0;
+    margin-left: 8px;
+
+   } 
+   #{$self}__avatar{
+     margin-right: 0;
+     margin-left: 13px;
+   }
+   #{$self}__date{
+     text-align: end;
+   }
+   
   }
 }
