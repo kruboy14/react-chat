@@ -1,0 +1,37 @@
+@import '~styles/variables';
+
+.message{
+  display: flex;
+  align-items: flex-end;
+  max-width: 440px;
+  &__avatar{
+   margin-right: 13px;
+   margin-bottom: 20px;
+    img{
+      border-radius: 50%;
+      width: 33px;
+      height: 33px;
+    }
+  }
+  &__content{
+  
+  }
+  &__bubble{
+    display: inline-block;
+    padding:  15px;
+    background-color: $blue;
+    color: #fff;
+    border-radius: 12px 12px 12px 0;
+    box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
+    margin-bottom: 8px;
+  
+  }
+  &__text{
+    line-height: 20px;
+  }
+  &__date{
+    display: block;
+    font-size: 12px;
+    opacity: .4;
+  }
+}
