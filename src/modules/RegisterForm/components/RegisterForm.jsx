@@ -5,7 +5,15 @@ import { UserOutlined, LockOutlined, MailOutlined, InfoCircleTwoTone } from '@an
 import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = props;
   const [registerDone, setRegisterDone] = React.useState(false);
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -29,6 +37,7 @@ const RegisterForm = () => {
           <Form
             name="normal_login"
             className="login-form"
+            onSubmit={handleSubmit}
             initialValues={{
               remember: true,
             }}
@@ -47,6 +56,9 @@ const RegisterForm = () => {
                 size="large"
                 prefix={<MailOutlined className="site-form-item-icon" />}
                 placeholder="E-mail"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
               />
             </Form.Item>
             <Form.Item
