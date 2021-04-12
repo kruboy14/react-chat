@@ -9,6 +9,7 @@ import {
 
 import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
+import { helpText, validStatus } from 'utils/helpers';
 
 const RegisterForm = (props) => {
   const {
@@ -19,7 +20,9 @@ const RegisterForm = (props) => {
     handleBlur,
     handleSubmit,
   } = props;
-  console.log(values);
+
+  
+
   const [registerDone, setRegisterDone] = React.useState(false);
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -54,10 +57,8 @@ const RegisterForm = (props) => {
             <Form.Item
               name="email"
               hasFeedback
-              validateStatus={
-                !touched.email ? '' : errors.email ? 'error' : 'success'
-              }
-              help={!touched.email ? undefined : errors.email}>
+              validateStatus={validStatus('email', touched, errors)}
+              help={helpText('email', touched, errors)}>
               <Input
                 id="email"
                 size="large"
@@ -71,10 +72,8 @@ const RegisterForm = (props) => {
             <Form.Item
               name="username"
               hasFeedback
-              validateStatus={
-                !touched.username ? '' : errors.username ? 'error' : 'success'
-              }
-              help={!touched.username ? undefined : errors.username}>
+              validateStatus={validStatus('username', touched, errors)}
+              help={helpText('username', touched, errors)}>
               <Input
                 id="username"
                 size="large"
@@ -88,10 +87,8 @@ const RegisterForm = (props) => {
             <Form.Item
               name="password"
               hasFeedback
-              validateStatus={
-                !touched.password ? '' : errors.password ? 'error' : 'success'
-              }
-              help={!touched.password ? undefined : errors.password}>
+              validateStatus={validStatus('password', touched, errors)}
+              help={helpText('password', touched, errors)}>
               <Input
                 id="password"
                 size="large"
@@ -106,12 +103,8 @@ const RegisterForm = (props) => {
             <Form.Item
               name="password2"
               hasFeedback
-              validateStatus={
-                !touched.password2 ? '' : errors.password2 ? 'error' : 'success'
-              }
-              help={
-                !touched.password2 ? undefined : errors.password2
-              }>
+              validateStatus={validStatus('password2', touched, errors)}
+              help={helpText('password2', touched, errors)}>
               <Input
                 id="password2"
                 size="large"

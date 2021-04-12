@@ -4,8 +4,18 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
+import { helpText, validStatus } from 'utils/helpers';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = props;
+
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -19,6 +29,7 @@ const LoginForm = () => {
         <Form
           name="normal_login"
           className="login-form"
+          onSubmit={handleSubmit}
           initialValues={{
             remember: true,
           }}
@@ -26,36 +37,36 @@ const LoginForm = () => {
           <Form.Item
             name="username"
             hasFeedback
-            validateStatus="success"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Username!',
-              },
-            ]}>
+            validateStatus={validStatus('username', touched, errors)}
+            help={helpText('username', touched, errors)}>
             <Input
+              id="username"
               size="large"
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.username}
             />
           </Form.Item>
           <Form.Item
             name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Password!',
-              },
-            ]}>
+            hasFeedback
+            validateStatus={validStatus('password', touched, errors)}
+            help={helpText('password', touched, errors)}>
             <Input
+              id="password"
               size="large"
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
               placeholder="Password"
             />
           </Form.Item>
           <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Form.Item name="remember" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
@@ -64,6 +75,7 @@ const LoginForm = () => {
 
           <Form.Item>
             <Button
+              onClick={handleSubmit}
               type="primary"
               htmlType="submit"
               className="login-form-button">
