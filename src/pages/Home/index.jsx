@@ -10,15 +10,18 @@ const Home = () => {
         date={Date.parse(
           'Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)',
         )}
-        attachments={[{
-          filename: 'first.jpg',
-          url: 'https://source.unsplash.com/100x100/?random=1nature',
-        },
-        {
-          filename: 'second.jpg',
-          url: 'https://source.unsplash.com/100x100/?random=2nature',
-        }
+        attachments={[
+          {
+            filename: 'first.jpg',
+            url: 'https://source.unsplash.com/100x100/?random=1nature',
+          },
+          {
+            filename: 'second.jpg',
+            url: 'https://source.unsplash.com/100x100/?random=2nature',
+          },
         ]}
+        isRead={'read'}
+
       />
       <Message
         avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
@@ -27,8 +30,11 @@ const Home = () => {
           'Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)',
         )}
         isMe={true}
-        isRead={true}
-      
+        isRead={'sent'}
+      />
+      <Message
+        avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
+        isTyping={true}
       />
     </div>
   );

@@ -1,86 +1,116 @@
 @import '~styles/variables';
 
-.message{
+.message {
   $self: &;
   display: flex;
   align-items: flex-end;
   margin-bottom: 15px;
   &__checkedTick {
-    
     margin-bottom: 20px;
   }
-  &__avatar{
-   margin-right: 13px;
-   margin-bottom: 14px;
-    img{
+  &__avatar {
+    margin-right: 13px;
+    margin-bottom: 8px;
+    img {
       border-radius: 50%;
       width: 33px;
       height: 33px;
     }
   }
-  &__content{
+  &__content {
     max-width: 440px;
-  
   }
-  &__item{
+  &__item {
     display: flex;
     flex-direction: column;
   }
-  &__bubble{
+  &__bubble {
     display: inline-block;
-    padding:  15px;
+    padding: 15px;
     background-color: $blue;
     color: #fff;
     border-radius: 12px 12px 12px 0;
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
     margin-bottom: 8px;
     margin-right: 8px;
-  
   }
-  &__text{
+  &__text {
     line-height: 20px;
   }
-  
-  &__attachments{
+
+  &__attachments {
     display: flex;
-    &__item{
+    &__item {
       margin-right: 8px;
       cursor: pointer;
     }
-    img{
-     width: 45px;
-     height: 45px;
-     border-radius: 8px;
-      
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
     }
   }
 
-  &__date{
+  &__date {
     display: block;
     font-size: 12px;
-    opacity: .4;
+    opacity: 0.4;
   }
 
-  &-isme{
-   display: flex;
-   flex-direction: row-reverse;
-   #{$self}__bubble {
-     background-color: #fff;
-     border: 1px solid #ececec;
-     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 12px 12px 0 12px;
-    color: $black;
-    margin-right: 0;
-    margin-left: 8px;
+  &-isme {
+    display: flex;
+    flex-direction: row-reverse;
+    #{$self}__bubble {
+      background-color: #fff;
+      border: 1px solid #ececec;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 12px 12px 0 12px;
+      color: $black;
+      margin-right: 0;
+      margin-left: 8px;
+    }
+    #{$self}__avatar {
+      margin-right: 0;
+      margin-left: 13px;
+    }
+    #{$self}__date {
+      text-align: end;
+    }
+  }
 
-   } 
-   #{$self}__avatar{
-     margin-right: 0;
-     margin-left: 13px;
-   }
-   #{$self}__date{
-     text-align: end;
-   }
-   
+  &__typing {
+    div#wave {
+      position: relative;
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 3px;
+        opacity: .9;
+        background: #FFFAFA;
+        animation: wave 1.3s linear infinite;
+
+        &:nth-child(2) {
+          animation-delay: -1.1s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: -0.9s;
+        }
+      }
+    }
+
+    @keyframes wave {
+      0%,
+      60%,
+      100% {
+        transform: initial;
+      }
+
+      30% {
+        transform: translateY(-7px);
+      }
+    }
   }
 }
