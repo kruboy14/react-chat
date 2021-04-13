@@ -1,10 +1,52 @@
 import React from 'react';
+import DialogItem from '../../components/DialogItem';
 import Message from '../../components/Message';
 
 const Home = () => {
   return (
     <div className="home">
-      <Message
+      <DialogItem
+        user={{
+          fullname: 'Artem Ministr',
+          isOnline: true,
+        }}
+        unread={5}
+      />
+      <DialogItem
+        user={{
+          fullname: 'Artem Ministr',
+          isOnline: true,
+        }}
+      />
+      <DialogItem
+        user={{
+          fullname: 'Artem Ministr',
+          isOnline: true,
+        }}
+      />
+      <DialogItem
+        user={{
+          fullname: 'Artem Ministr',
+          isOnline: true,
+        }}
+      />
+      {/* <Dialogs
+        item={[
+          {
+            user: {
+              fullname: 'Artem Ministr',
+              avatar: null,
+            },
+            message: {
+              text:
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+              isReaded: 'sent',
+              createdAt: new Date() 
+            },
+          },
+        ]}
+      /> */}
+      {/* <Message
         avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
         text="Hello! What's up?"
         date={Date.parse(
@@ -21,7 +63,6 @@ const Home = () => {
           },
         ]}
         isRead={'read'}
-
       />
       <Message
         avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
@@ -36,6 +77,15 @@ const Home = () => {
         avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
         isTyping={true}
       />
+      <Message
+        avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
+        attachments={[
+          {
+            filename: 'first.jpg',
+            url: 'https://source.unsplash.com/150x150/?random=3nature',
+          },
+        ]}
+      /> */}
     </div>
   );
 };

@@ -8,22 +8,26 @@
   &__checkedTick {
     margin-bottom: 20px;
   }
+
   &__avatar {
     margin-right: 13px;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     img {
       border-radius: 50%;
       width: 33px;
       height: 33px;
     }
   }
+
   &__content {
     max-width: 440px;
   }
+
   &__item {
     display: flex;
     flex-direction: column;
   }
+
   &__bubble {
     display: inline-block;
     padding: 15px;
@@ -34,6 +38,7 @@
     margin-bottom: 8px;
     margin-right: 8px;
   }
+
   &__text {
     line-height: 20px;
   }
@@ -48,6 +53,17 @@
       width: 45px;
       height: 45px;
       border-radius: 8px;
+    }
+  }
+
+  &-image-one{
+    #{$self}__attachments {
+      &__item{
+        img{
+          width: 150px;
+          height: 150px;
+        }
+      }
     }
   }
 
@@ -69,16 +85,19 @@
       margin-right: 0;
       margin-left: 8px;
     }
+
     #{$self}__avatar {
       margin-right: 0;
       margin-left: 13px;
     }
+
     #{$self}__date {
       text-align: end;
     }
   }
 
   &__typing {
+    margin: 0 5px;
     div#wave {
       position: relative;
       .dot {

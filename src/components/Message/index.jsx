@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import readTick from 'assets/img/double-tick-indicator.svg';
-import sentTick from 'assets/img/single-tick-indicator.svg';
 
 import './Message.scss';
 import classNames from 'classnames';
+import { IconRead, Time } from '..';
+
 
 const Message = ({
   avatar,
@@ -22,42 +21,39 @@ const Message = ({
       className={classNames('message', {
         'message-isme': isMe,
         'message-is-typing': isTyping,
+        'message-image-one': attachments && attachments.length === 1,
       })}>
       <div className="message__avatar">
         <img src={avatar} alt={`Avatar ${user.fullname}`}></img>
       </div>
       <div className="message__content">
         <div className="message__item">
-          <div className="message__bubble">
-            {text && <p className="message__text">{text}</p>}
-            {isTyping && (
-              <div className="message__typing">
-                <div id="wave">
-                  <span class="dot"></span>
-                  <span class="dot"></span>
-                  <span class="dot"></span>
+          {(text || isTyping) && (
+            <div className="message__bubble">
+              {text && <p className="message__text">{text}</p>}
+              {isTyping && (
+                <div className="message__typing">
+                  <div id="wave">
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                    <span className="dot"></span>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           <div className="message__attachments">
             {attachments &&
               attachments.map((item) => (
-                <div className="message__attachments__item">
+                <div key={item.filename} className="message__attachments__item">
                   <img src={item.url} alt={item.filename} />
                 </div>
               ))}
           </div>
         </div>
-        <span className="message__date">
-          {date && formatDistanceToNow(date, { addSuffix: true })}
-        </span>
+        <span className="message__date">{date && <Time date={date} />}</span>
       </div>
-      {isRead === 'sent' ? (
-        <img className="message__checkedTick" src={sentTick} alt="" />
-      ) : isRead === 'read' ? (
-        <img className="message__checkedTick" src={readTick} alt="" />
-      ) : undefined}
+      <IconRead isRead={isRead} />
     </div>
   );
 };
@@ -73,6 +69,8 @@ Message.propTypes = {
   date: PropTypes.number,
   attachments: PropTypes.array,
   isTyping: PropTypes.bool,
+  isMe: PropTypes.bool,
+  isRead: PropTypes.string,
 };
 
 export default Message;
