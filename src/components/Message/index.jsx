@@ -34,7 +34,9 @@ const Message = ({
     audioElem.current.addEventListener('timeupdate', () => {
       setCurrentTime(audioElem.current.currentTime);
       const duration = audioElem.current.duration || 0;
-      setProgressWidth((audioElem.current.currentTime / duration) * 100);
+      setProgressWidth(
+        (audioElem.current.currentTime / duration) * 100 + duration * 0.3,
+      );
     });
     audioElem.current.addEventListener('ended', () => {
       setPlay(false);

@@ -98,25 +98,22 @@
   }
 
   &-is-audio {
-    #{$self}__bubble{
+    #{$self}__bubble {
       overflow: hidden;
     }
     #{$self}__audio {
-      
       &-progress {
         background-color: #418fff;
         position: absolute;
         left: 0;
         top: 0;
-        
+        transition: width .3s linear;
         height: 100%;
-        
       }
       &-info {
         display: flex;
         align-items: center;
         position: relative;
-        
       }
       &-btn {
         display: flex;
@@ -128,7 +125,7 @@
           height: 28px;
           border-radius: 50%;
           border: 0;
-          img{
+          img {
             height: 17px;
             position: relative;
             left: 1px;
@@ -137,12 +134,11 @@
       }
       &-wave {
         margin-right: 15px;
-
       }
       &-duration {
         color: #fff;
         font-weight: 500;
-        opacity: .9;
+        opacity: 0.9;
         font-size: 12px;
         min-width: 30px;
         
