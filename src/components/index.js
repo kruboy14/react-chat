@@ -4,3 +4,4 @@ export { default as Block } from './Block';
 export { default as DialogItem } from './DialogItem';
 export { default as Time } from './Time';
 export { default as IconRead } from './IconRead';
+export { default as Dialogs } from './Dialogs';

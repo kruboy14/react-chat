@@ -31,6 +31,7 @@
   &__bubble {
     display: inline-block;
     padding: 15px;
+    position: relative;
     background-color: $blue;
     color: #fff;
     border-radius: 12px 12px 12px 0;
@@ -56,10 +57,10 @@
     }
   }
 
-  &-image-one{
+  &-image-one {
     #{$self}__attachments {
-      &__item{
-        img{
+      &__item {
+        img {
           width: 150px;
           height: 150px;
         }
@@ -96,6 +97,59 @@
     }
   }
 
+  &-is-audio {
+    #{$self}__bubble{
+      overflow: hidden;
+    }
+    #{$self}__audio {
+      
+      &-progress {
+        background-color: #418fff;
+        position: absolute;
+        left: 0;
+        top: 0;
+        
+        height: 100%;
+        
+      }
+      &-info {
+        display: flex;
+        align-items: center;
+        position: relative;
+        
+      }
+      &-btn {
+        display: flex;
+        margin-right: 15px;
+        button {
+          cursor: pointer;
+          background-color: #0f3997;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          border: 0;
+          img{
+            height: 17px;
+            position: relative;
+            left: 1px;
+          }
+        }
+      }
+      &-wave {
+        margin-right: 15px;
+
+      }
+      &-duration {
+        color: #fff;
+        font-weight: 500;
+        opacity: .9;
+        font-size: 12px;
+        min-width: 30px;
+        
+      }
+    }
+  }
+
   &__typing {
     margin: 0 5px;
     div#wave {
@@ -106,8 +160,8 @@
         height: 8px;
         border-radius: 50%;
         margin-right: 3px;
-        opacity: .9;
-        background: #FFFAFA;
+        opacity: 0.9;
+        background: #fffafa;
         animation: wave 1.3s linear infinite;
 
         &:nth-child(2) {

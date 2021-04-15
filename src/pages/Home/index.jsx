@@ -1,57 +1,61 @@
 import React from 'react';
-import DialogItem from '../../components/DialogItem';
-import Message from '../../components/Message';
+import { Dialogs, Message } from '../../components';
 
 const Home = () => {
   return (
     <div className="home">
-      <DialogItem
-        user={{
-          fullname: 'Artem Ministr',
-          isOnline: true,
-        }}
-        unread={5}
-      />
-      <DialogItem
-        user={{
-          fullname: 'Artem Ministr',
-          isOnline: true,
-        }}
-      />
-      <DialogItem
-        user={{
-          fullname: 'Artem Ministr',
-          isOnline: true,
-        }}
-      />
-      <DialogItem
-        user={{
-          fullname: 'Artem Ministr',
-          isOnline: true,
-        }}
-      />
-      {/* <Dialogs
-        item={[
+      <Dialogs
+        userID={1}
+        items={[
           {
             user: {
               fullname: 'Artem Ministr',
               avatar: null,
+              _id: 1,
             },
-            message: {
+            lastMessage: {
               text:
                 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-              isReaded: 'sent',
-              createdAt: new Date() 
+              isRead: false,
+              createdAt: 'Tue Apr 2 2021 18:11:33',
+            },
+          },
+          {
+            user: {
+              fullname: 'Artem Ministr',
+              avatar: null,
+              _id: 2,
+            },
+            lastMessage: {
+              text: '2222222222222',
+              isRead: false,
+              createdAt: 'Tue Apr 1 2021 18:11:33',
+            },
+          },
+          {
+            user: {
+              fullname: 'Artem Ministr',
+              avatar: null,
+              _id: 3,
+            },
+            lastMessage: {
+              text: '33333333333333333333333333333333333',
+              isRead: false,
+              createdAt: 'Tue Apr 3 2021 18:11:33',
             },
           },
         ]}
-      /> */}
+      />
+      <Message
+        avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
+        date="Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)"
+        audio="https://notificationsounds.com/storage/sounds/file-de_vuvuzela-power-down.mp3"
+      />
+
       {/* <Message
         avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
         text="Hello! What's up?"
-        date={Date.parse(
-          'Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)',
-        )}
+        date="Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)"
         attachments={[
           {
             filename: 'first.jpg',
@@ -62,16 +66,14 @@ const Home = () => {
             url: 'https://source.unsplash.com/100x100/?random=2nature',
           },
         ]}
-        isRead={'read'}
+        isRead={true}
       />
       <Message
         avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
         text="WOW DUDE! it's you!"
-        date={Date.parse(
-          'Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)',
-        )}
+        date="Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)"
         isMe={true}
-        isRead={'sent'}
+        isRead={false}
       />
       <Message
         avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"

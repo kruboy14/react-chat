@@ -34,13 +34,10 @@
       }
     }
   }
-  &-notick-nocount {
-    #{$self}-content-text{
-      max-width: 100%;
-    }
-  }
 
   &-content {
+    max-width: 235px;
+    width: 100%;
     &-top {
       display: flex;
       justify-content: space-between;
