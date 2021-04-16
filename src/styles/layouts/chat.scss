@@ -1,0 +1,43 @@
+.chat {
+  background-color: #fff;
+  max-width: 1240px;
+  margin: 0 auto;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  &__sidebar {
+    flex: 0 1 330px;
+    &-header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+
+     & > div {
+        span {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    &-search {
+      padding: 0 20px;
+      span, input,button {
+        background-color: #f7f8f9;
+      }
+    }
+
+    &-dialogs {
+    }
+  }
+
+  &__dialog {
+    flex: 1 1 auto;
+    &-header {
+      &-content {
+      }
+    }
+    &-username {
+    }
+    &-status {
+    }
+  }
+}

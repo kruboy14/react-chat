@@ -1,10 +1,17 @@
 @import 'antd/dist/antd.css';
 @import 'reset.css';
+@import 'layouts/chat.scss';
 
-body, html, #root, .wrapper {
+body,
+html,
+#root,
+.wrapper {
   height: 100%;
   color: #202020;
 }
+body {
+  background-color: #f4f7fd;
+}
 * {
-	outline: 0;
+  outline: 0;
 }
