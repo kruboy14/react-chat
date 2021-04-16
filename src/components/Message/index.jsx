@@ -21,38 +21,66 @@ const Message = ({
   attachments,
   isTyping,
 }) => {
-  const [isPlaying, setPlay] = React.useState(false);
-  const [currentTime, setCurrentTime] = React.useState(0);
-  const [progressWidth, setProgressWidth] = React.useState(0);
-  const audioElem = React.useRef(null);
+  const MessageAudio = ({audioSrc}) => {
+    const [isPlaying, setPlay] = React.useState(false);
+    const [currentTime, setCurrentTime] = React.useState(0);
+    const [progressWidth, setProgressWidth] = React.useState(0);
+    const audioElem = React.useRef(null);
 
-  React.useEffect(() => {
-    audioElem.current.addEventListener('loadeddata', () =>
-      setCurrentTime(audioElem.current.duration),
-    );
-    audioElem.current.addEventListener('playing', () => setPlay(true));
-    audioElem.current.addEventListener('timeupdate', () => {
-      setCurrentTime(audioElem.current.currentTime);
-      const duration = audioElem.current.duration || 0;
-      setProgressWidth(
-        (audioElem.current.currentTime / duration) * 100 + duration * 0.3,
+    React.useEffect(() => {
+      audioElem.current.addEventListener('loadeddata', () =>
+        setCurrentTime(audioElem.current.duration),
       );
-    });
-    audioElem.current.addEventListener('ended', () => {
-      setPlay(false);
-      setProgressWidth(0);
-    });
-    audioElem.current.addEventListener('pause', () => setPlay(false));
-  }, []);
+      audioElem.current.addEventListener('playing', () => setPlay(true));
+      audioElem.current.addEventListener('timeupdate', () => {
+        setCurrentTime(audioElem.current.currentTime);
+        const duration = audioElem.current.duration || 0;
+        setProgressWidth(
+          (audioElem.current.currentTime / duration) * 100 + duration * 0.3,
+        );
+      });
+      audioElem.current.addEventListener('ended', () => {
+        setPlay(false);
+        setProgressWidth(0);
+      });
+      audioElem.current.addEventListener('pause', () => setPlay(false));
+    }, []);
 
-  const onPlay = () => {
-    audioElem.current.volume = '0.01';
+    const onPlay = () => {
+      audioElem.current.volume = '0.01';
 
-    if (!isPlaying) {
-      audioElem.current.play();
-    } else {
-      audioElem.current.pause();
-    }
+      if (!isPlaying) {
+        audioElem.current.play();
+      } else {
+        audioElem.current.pause();
+      }
+    };
+
+    return (
+      <div className="message__audio">
+        <audio ref={audioElem} src={audioSrc} preload="auto"></audio>
+        <div
+          className="message__audio-progress"
+          style={{ width: progressWidth + '%' }}></div>
+        <div className="message__audio-info">
+          <div className="message__audio-btn">
+            <button onClick={onPlay}>
+              {isPlaying ? (
+                <img src={pauseSvg} alt="Pause svg" />
+              ) : (
+                <img src={playSvg} alt="Play svg" />
+              )}
+            </button>
+          </div>
+          <div className="message__audio-wave">
+            <img src={waveSvg} alt="Wave svg" />
+          </div>
+          <div className="message__audio-duration">
+            <span>{convertCurrentTime(currentTime)}</span>
+          </div>
+        </div>
+      </div>
+    )
   };
 
   return (
@@ -80,31 +108,7 @@ const Message = ({
                   </div>
                 </div>
               )}
-              <audio ref={audioElem} src={audio} preload="auto"></audio>
-              {audio && (
-                <div className="message__audio">
-                  <div
-                    className="message__audio-progress"
-                    style={{ width: progressWidth + '%' }}></div>
-                  <div className="message__audio-info">
-                    <div className="message__audio-btn">
-                      <button onClick={onPlay}>
-                        {isPlaying ? (
-                          <img src={pauseSvg} alt="Pause svg" />
-                        ) : (
-                          <img src={playSvg} alt="Play svg" />
-                        )}
-                      </button>
-                    </div>
-                    <div className="message__audio-wave">
-                      <img src={waveSvg} alt="Wave svg" />
-                    </div>
-                    <div className="message__audio-duration">
-                      <span>{convertCurrentTime(currentTime)}</span>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {audio && <MessageAudio audioSrc={audio}/>}
             </div>
           )}
 
@@ -120,61 +124,7 @@ const Message = ({
         </div>
         <span className="message__date">{date && <Time date={date} />}</span>
       </div>
-      <IconRead isRead={isRead} />
-    </div>
-  );
-};
-
-const Message1 = ({
-  avatar,
-  user,
-  text,
-  date,
-  isMe,
-  isRead,
-  attachments,
-  isTyping,
-}) => {
-  return (
-    <div
-      className={classNames('message', {
-        'message-isme': isMe,
-        'message-is-typing': isTyping,
-        'message-image-one': attachments && attachments.length === 1,
-      })}>
-      <div className="message__avatar">
-        <img src={avatar} alt={`Avatar ${user.fullname}`}></img>
-      </div>
-      <div className="message__content">
-        <div className="message__item">
-          {(text || isTyping) && (
-            <div className="message__bubble">
-              {text && <p className="message__text">{text}</p>}
-              {isTyping && (
-                <div className="message__typing">
-                  <div id="wave">
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {attachments && (
-            <div className="message__attachments">
-              {attachments.map((item) => (
-                <div key={item.filename} className="message__attachments__item">
-                  <img src={item.url} alt={item.filename} />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <span className="message__date">{date && <Time date={date} />}</span>
-      </div>
-      <IconRead isRead={isRead} />
+      {isMe && <IconRead isRead={isRead} />}
     </div>
   );
 };

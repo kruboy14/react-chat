@@ -1,18 +1,12 @@
 import React from 'react';
 
 import './DialogItem.scss';
-import { Time, IconRead } from '..';
+import { Time, IconRead, Avatar } from '..';
 import classNames from 'classnames';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import isThisWeek from 'date-fns/isThisWeek';
-const getAvatar = (avatar) => {
-  if (avatar) {
-    return <img src={avatar} alt="" />;
-  } else {
-    // make
-  }
-};
+
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -36,9 +30,7 @@ const DialogItem = ({ user, message, unread, isMe }) => {
       })}>
       <div className="dialog__item-avatar">
         {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
-        {getAvatar(
-          'https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg',
-        )}
+        <Avatar user={user}/>
       </div>
       <div className="dialog__item-content">
         <div className="dialog__item-content-top">

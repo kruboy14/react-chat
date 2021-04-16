@@ -11,7 +11,7 @@ const Home = () => {
             user: {
               fullname: 'Artem Ministr',
               avatar: null,
-              _id: 1,
+              _id: "5ca2aa845c8cd5ace6b016841f100d82",
             },
             lastMessage: {
               text:
@@ -22,9 +22,9 @@ const Home = () => {
           },
           {
             user: {
-              fullname: 'Artem Ministr',
+              fullname: 'Andrew Ministr',
               avatar: null,
-              _id: 2,
+              _id: "52a2aa845c8cd5ace6b016841f100d82",
             },
             lastMessage: {
               text: '2222222222222',
@@ -35,8 +35,8 @@ const Home = () => {
           {
             user: {
               fullname: 'Artem Ministr',
-              avatar: null,
-              _id: 3,
+              avatar: "https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg",
+              _id: "1ca2aa845c8cd5ace6b016841f100d82",
             },
             lastMessage: {
               text: '33333333333333333333333333333333333',
