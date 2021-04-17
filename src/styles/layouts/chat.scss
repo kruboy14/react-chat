@@ -5,23 +5,41 @@
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
   display: flex;
   &__sidebar {
+    border-right: 1px solid #f7f7f7;
+    box-shadow: 2px 0px 5px #f7f7f7;
     flex: 0 1 330px;
     &-header {
-      padding: 20px;
+      padding: 25px 20px 20px 20px;
+      
       display: flex;
       justify-content: space-between;
-
-     & > div {
+      margin-bottom: 20px;
+      & > div {
         span {
           margin-right: 5px;
+
         }
+      }
+      &-text{
+        font-size: 16px;
+      }
+      &-left {
+        display: flex;
+        align-items: center;
       }
     }
 
     &-search {
       padding: 0 20px;
-      span, input,button {
+      margin-bottom: 30px;
+
+      span,
+      input,
+      button {
         background-color: #f7f8f9;
+      }
+      input {
+        height: 30px;
       }
     }
 
@@ -32,12 +50,37 @@
   &__dialog {
     flex: 1 1 auto;
     &-header {
+      margin-bottom: 20px;
+      display: flex;
+      padding: 20px;
+      border-bottom: 1px solid #f7f7f7;
+      justify-content: space-between;
+      align-items: center;
+
       &-content {
+        text-align: center;
       }
     }
     &-username {
+      display: block;
+      margin-bottom: 5px;
     }
-    &-status {
+    .status {
+      color: #8f8f8f;
+      &::before {
+        margin-right: 5px;
+        display: inline-block;
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #8f8f8f;
+      }
+      &-online {
+        &::before {
+          background-color: #00c980;
+        }
+      }
     }
   }
 }

@@ -2,7 +2,7 @@ import tinycolor from 'tinycolor2';
 
 const generateAvatarFromHash = (hash) => {
   const [r, g, b] = hash
-    .substr(0, 3)
+    .substr(-3, 3)
     .split('')
     .map((char) =>
       char.charCodeAt() + 10 > 255
@@ -10,8 +10,8 @@ const generateAvatarFromHash = (hash) => {
         : char.charCodeAt() +10,
     );
     
-  const color = tinycolor({ r, g, b });
-  const colorLighten = tinycolor({ r, g, b }).lighten(40);
+  const color = tinycolor({ r, g, b }).saturate(60);
+  const colorLighten = tinycolor({ r, g, b }).lighten(30).saturate(30);
   return {
     color: color.toHexString(),
     colorLighten: colorLighten.toHexString(),

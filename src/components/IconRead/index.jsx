@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const IconRead = ({ isRead }) =>
   isRead ? (
-    <img className="message__checkedTick" src={sentTick} alt="" />
-  ) : (
     <img className="message__checkedTick" src={readTick} alt="" />
+  ) : (
+    <img className="message__checkedTick" src={sentTick} alt="" />
   );
 
 IconRead.propTypes = {
