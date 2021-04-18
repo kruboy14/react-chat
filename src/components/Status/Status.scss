@@ -1,0 +1,17 @@
+.status {
+  color: #8f8f8f;
+  &::before {
+    margin-right: 5px;
+    display: inline-block;
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #8f8f8f;
+  }
+  &-online {
+    &::before {
+      background-color: #00c980;
+    }
+  }
+}

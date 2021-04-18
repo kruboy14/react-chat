@@ -5,8 +5,9 @@ import {
   SearchOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons';
-import { Dialogs, Message } from '../../components';
+import { ChatInput, Dialogs, Message, Status } from '../../components';
 import { Input } from 'antd';
+import './Home.scss';
 
 const Home = () => {
   const [messageSearch, setMessageSearch] = React.useState('');
@@ -17,7 +18,9 @@ const Home = () => {
           <div className="chat__sidebar-header">
             <div className="chat__sidebar-header-left">
               <TeamOutlined />
-              <span className="chat__sidebar-header-text">List of contacts</span>
+              <span className="chat__sidebar-header-text">
+                List of contacts
+              </span>
             </div>
             <FormOutlined />
           </div>
@@ -303,7 +306,7 @@ const Home = () => {
             <div className="chat__dialog-header-content">
               <b className="chat__dialog-username">Artem Minist</b>
               <div className="chat__dialog-status">
-                <div className="status status-online">online</div>
+                <Status online />
               </div>
             </div>
             <EllipsisOutlined style={{ fontSize: '22px', cursor: 'pointer' }} />
@@ -351,7 +354,79 @@ const Home = () => {
                 },
               ]}
             />
+            <Message
+              avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
+              text="Hello! What's up?"
+              date="Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)"
+              attachments={[
+                {
+                  filename: 'first.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=1nature',
+                },
+                {
+                  filename: 'second.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=2nature',
+                },
+              ]}
+              isRead={true}
+            />
+            <Message
+              avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
+              text="WOW DUDE! it's you!"
+              date="Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)"
+              isMe={true}
+              isRead={false}
+            />
+            <Message
+              avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
+              text="Hello! What's up?"
+              date="Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)"
+              attachments={[
+                {
+                  filename: 'first.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=1nature',
+                },
+                {
+                  filename: 'second.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=2nature',
+                },
+              ]}
+              isRead={true}
+            />
+            <Message
+              avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
+              text="WOW DUDE! it's you!"
+              date="Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)"
+              isMe={true}
+              isRead={false}
+            />
+            <Message
+              avatar="https://99px.ru/sstorage/1/2010/04/image_10704101336437444814.jpg"
+              text="Hello! What's up?"
+              date="Tue Apr 06 2021 13:21:31 GMT+0300 (Восточная Европа, летнее время)"
+              attachments={[
+                {
+                  filename: 'first.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=1nature',
+                },
+                {
+                  filename: 'second.jpg',
+                  url: 'https://source.unsplash.com/100x100/?random=2nature',
+                },
+              ]}
+              isRead={true}
+            />
+            <Message
+              avatar="https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar.png"
+              text="WOW DUDE! it's you!"
+              date="Tue Apr 06 2021 13:31:31 GMT+0300 (Восточная Европа, летнее время)"
+              isMe={true}
+              isRead={false}
+            />
           </div>
+              <div className="chat__dialog-input">
+              <ChatInput/>
+              </div>
         </div>
       </div>
     </div>
