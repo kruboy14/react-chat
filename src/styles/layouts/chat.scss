@@ -1,17 +1,31 @@
 .chat {
   background-color: #fff;
-  // user-select: none;   
+  // user-select: none;
   max-width: 1240px;
   height: 100%;
   margin: 0 auto;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
   display: flex;
+  button.ant-btn-icon-only {
+    color: inherit;
+    background-color: #fff;
+    span.anticon {
+      opacity: 0.5;
+      font-size: 16px;
+    }
+    &:hover {
+      span.anticon {
+        opacity: 1;
+        transition: 0.3s;
+      }
+    }
+  }
   &__sidebar {
     border-right: 1px solid #f7f7f7;
     box-shadow: 2px 0px 5px #f7f7f7;
     flex: 0 1 330px;
     &-header {
-      padding: 25px 20px 20px 20px;
+      padding: 20px;
 
       display: flex;
       justify-content: space-between;
@@ -65,7 +79,11 @@
       border-bottom: 1px solid #f7f7f7;
       justify-content: space-between;
       align-items: center;
-
+      button.ant-btn-icon-only {
+        span.anticon {
+          font-size: 22px;
+        }
+      }
       &-content {
         text-align: center;
       }
@@ -76,8 +94,16 @@
     }
 
     &-messages {
+      position: relative;
       overflow: auto;
       height: calc(100% - 160px);
+
+      .ant-empty {
+        position: absolute;
+        top: 50%;
+        left: 47%;
+        transform: translate(-50%, -50%);
+      }
     }
   }
 }

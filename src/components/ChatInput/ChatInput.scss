@@ -4,31 +4,34 @@
   align-items: center;
   border: 1px solid #d9d9d9;
   border-radius: 2px;
-  padding: 3px 0px 3px 15px;
-  &__smile{
-
+  padding: 3px 0px 3px 5px;
+  &__smile {
   }
-  &__actions{
+  &__actions {
     display: flex;
-    span{
-      margin-right: 15px;
+    button.ant-btn-icon-only {
+      margin-right: 10px;
     }
-
   }
   input {
     border: 0;
-    &:focus{
+    &:focus {
       border: 0;
       box-shadow: none;
     }
   }
-  span.anticon {
-    opacity: .5;
-    font-size: 18px;
-    cursor: pointer;
-    &:hover{
-      opacity: 1;
-      transition: .3s;
+  button.ant-btn-icon-only {
+    padding-top: 4px;
+    span.anticon {
+      opacity: 0.5;
+      font-size: 18px;
+    }
+    &:hover {
+      span.anticon {
+        opacity: 1;
+        transition: 0.3s;
+      }
+      
     }
   }
 }
