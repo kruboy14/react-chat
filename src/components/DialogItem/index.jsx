@@ -6,7 +6,8 @@ import classNames from 'classnames';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import isThisWeek from 'date-fns/isThisWeek';
-
+import { useDispatch } from 'react-redux';
+import Actions from '../../redux/actions/dialogs';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -21,16 +22,18 @@ const getMessageTime = (createdAt) => {
   }
 };
 
-const DialogItem = ({ user, message, unread, isMe }) => {
+const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
+  const dispatch = useDispatch();
   return (
     <div
       className={classNames('dialog__item', {
         'dialog__item-online': user.isOnline,
         'dialog__item-notick-nocount': !unread && !isMe,
-      })}>
+      })}
+      onClick={() => dispatch(Actions.setCurrentDialog(_id))}>
       <div className="dialog__item-avatar">
         {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
-        <Avatar user={user}/>
+        <Avatar user={user} />
       </div>
       <div className="dialog__item-content">
         <div className="dialog__item-content-top">

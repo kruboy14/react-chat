@@ -8,7 +8,6 @@ import { ChatInput, Message, Messages, Status } from '../../components';
 import { Button } from 'antd';
 import './Home.scss';
 import { Dialogs } from '../../containers';
-import dialogs from 'dialogs.json';
 
 const Home = () => {
   return (
@@ -26,7 +25,7 @@ const Home = () => {
           </div>
 
           <div className="chat__sidebar-dialogs">
-            <Dialogs userID={'607b3097a3ff3c7b0cd5579c'} items={dialogs} />
+            <Dialogs userID={'607b3097a3ff3c7b0cd5579c'}  />
           </div>
         </div>
         <div className="chat__dialog">
