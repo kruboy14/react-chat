@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Dialogs as BaseDialogs } from '../components';
 import { dialogsActions } from '../redux/actions';
-import Actions from '../redux/actions/dialogs';
 import { selectAllDialogs } from '../redux/selectors';
 
 const Dialogs = ({ ...props }) => {
@@ -16,7 +15,7 @@ const Dialogs = ({ ...props }) => {
 
   React.useEffect(() => {
     if (!items.length) {
-      dispatch(Actions.fetchDialogs());
+      dispatch(dialogsActions.fetchDialogs());
     } else {
       setFilter(items);
     }

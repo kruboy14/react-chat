@@ -7,7 +7,7 @@ import pauseSvg from 'assets/img/pause.svg';
 
 import './Message.scss';
 import classNames from 'classnames';
-import { IconRead, Time } from '..';
+import { Avatar, IconRead, Time } from '..';
 import { convertCurrentTime } from 'utils/helpers';
 
 const Message = ({
@@ -21,7 +21,9 @@ const Message = ({
   attachments,
   isTyping,
 }) => {
-  const MessageAudio = ({audioSrc}) => {
+  console.log('text', text);
+  console.log('date', date);
+  const MessageAudio = ({ audioSrc }) => {
     const [isPlaying, setPlay] = React.useState(false);
     const [currentTime, setCurrentTime] = React.useState(0);
     const [progressWidth, setProgressWidth] = React.useState(0);
@@ -80,7 +82,7 @@ const Message = ({
           </div>
         </div>
       </div>
-    )
+    );
   };
 
   return (
@@ -92,7 +94,7 @@ const Message = ({
         'message-is-audio': audio,
       })}>
       <div className="message__avatar">
-        <img src={avatar} alt={`Avatar ${user.fullname}`}></img>
+        <Avatar user={user} />
       </div>
       <div className="message__content">
         <div className="message__item">
@@ -108,7 +110,7 @@ const Message = ({
                   </div>
                 </div>
               )}
-              {audio && <MessageAudio audioSrc={audio}/>}
+              {audio && <MessageAudio audioSrc={audio} />}
             </div>
           )}
 

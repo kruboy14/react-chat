@@ -6,6 +6,7 @@ const Actions = {
   setMessages: createAction(MESSAGES_SET_ITEMS),
   fetchMessages: (dialogID) => async (dispatch) => {
     const response = await messagesApi.getByDialogID(dialogID);
+
     dispatch(Actions.setMessages(response.data));
   },
 };

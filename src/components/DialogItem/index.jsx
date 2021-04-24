@@ -7,7 +7,7 @@ import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import isThisWeek from 'date-fns/isThisWeek';
 import { useDispatch } from 'react-redux';
-import Actions from '../../redux/actions/dialogs';
+import { dialogsActions } from '../../redux/actions';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -30,7 +30,7 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
         'dialog__item-online': user.isOnline,
         'dialog__item-notick-nocount': !unread && !isMe,
       })}
-      onClick={() => dispatch(Actions.setCurrentDialog(_id))}>
+      onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>
       <div className="dialog__item-avatar">
         {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
         <Avatar user={user} />
