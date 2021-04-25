@@ -21,8 +21,6 @@ const Message = ({
   attachments,
   isTyping,
 }) => {
-  console.log('text', text);
-  console.log('date', date);
   const MessageAudio = ({ audioSrc }) => {
     const [isPlaying, setPlay] = React.useState(false);
     const [currentTime, setCurrentTime] = React.useState(0);

@@ -1,3 +1,5 @@
+@import '../variables';
+
 .chat {
   background-color: #fff;
   // user-select: none;
@@ -59,14 +61,14 @@
     }
 
     &-dialogs {
-      height: calc(100% - 151px);
+      height: calc(100% - 92px);
       .dialogs {
         overflow: auto;
         &::-webkit-scrollbar {
           width: 0 !important;
         }
         scrollbar-width: none;
-        height: 100%;
+        height: calc(100% - 92px);
       }
     }
   }
@@ -105,5 +107,18 @@
         transform: translate(-50%, -50%);
       }
     }
+  }
+}
+
+.messages-spin {
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  .ant-spin-text {
+    margin-top: 15px;
+    font-size: 16px;
+    color: $blue;
+    font-weight: 500;
   }
 }

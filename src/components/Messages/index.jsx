@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
 import { Message } from '..';
+import { LoadingOutlined } from '@ant-design/icons';
 
+const Messages = ({ isLoading, items }) => {
 
-
-const Messages = ({ items }) => {
-  console.log("items",items);
-  return items ? (
-    <div>
-      {items.map((item) => (
-      
-        <Message {...item} />
-      ))}
-    </div>
+  return isLoading && !items.length ? (
+    <Spin className="messages-spin" tip="Loading messages" indicator={<LoadingOutlined style={{ fontSize: 46 }} spin />} />
+  ) : items.length ? (
+    items.map((item) => <Message {...item} />)
   ) : (
     <Empty description="No message" />
   );

@@ -12,10 +12,18 @@
   &__avatar {
     margin-right: 13px;
     margin-bottom: 5px;
-    img {
+    .avatar {
       border-radius: 50%;
       width: 33px;
       height: 33px;
+      font-size: 14px;
+      line-height: 32px;
+    }
+    img{
+      border-radius: 50%;
+      width: 33px;
+      height: 33px;
+      object-fit: cover;
     }
   }
 
