@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
 
 import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
@@ -14,8 +15,10 @@ const LoginForm = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
+    isSubmitting,
   } = props;
 
+  const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -35,18 +38,18 @@ const LoginForm = (props) => {
           }}
           onFinish={onFinish}>
           <Form.Item
-            name="username"
+            name="email"
             hasFeedback
-            validateStatus={validStatus('username', touched, errors)}
-            help={helpText('username', touched, errors)}>
+            validateStatus={validStatus('email', touched, errors)}
+            help={helpText('email', touched, errors)}>
             <Input
-              id="username"
+              id="email"
               size="large"
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              placeholder="Email"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.username}
+              value={values.email}
             />
           </Form.Item>
           <Form.Item
@@ -70,12 +73,15 @@ const LoginForm = (props) => {
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <Link className="login-form-forgot">Forgot password</Link>
+            <Link to="/" className="login-form-forgot">
+              Forgot password
+            </Link>
           </Form.Item>
 
           <Form.Item>
             <Button
               onClick={handleSubmit}
+              disabled={isSubmitting}
               type="primary"
               htmlType="submit"
               className="login-form-button">

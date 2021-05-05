@@ -13,7 +13,18 @@
           
   }
   &.active {
-    background-color: #d5e9ff;
+    background-color: #5a74ef;
+    color: #fff;
+    .dialog__item-content-time {
+      opacity: 1;
+    }
+
+    .dialog__item-content-text {
+      
+        opacity: 1;
+
+      
+    }
     
   }
   &-avatar {

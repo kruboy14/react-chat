@@ -6,8 +6,9 @@ import classNames from 'classnames';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import isThisWeek from 'date-fns/isThisWeek';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dialogsActions } from '../../redux/actions';
+import { selectCurrentDialogID } from '../../redux/selectors';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -24,10 +25,12 @@ const getMessageTime = (createdAt) => {
 
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
   const dispatch = useDispatch();
+  const currentDialogID = useSelector(selectCurrentDialogID)
   return (
     <div
       className={classNames('dialog__item', {
         'dialog__item-online': user.isOnline,
+        'active': currentDialogID === _id,
         'dialog__item-notick-nocount': !unread && !isMe,
       })}
       onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>

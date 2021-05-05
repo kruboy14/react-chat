@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { Picker } from 'emoji-mart';
+
 import {
   SmileOutlined,
   CameraOutlined,
@@ -10,13 +11,27 @@ import {
 
 import './ChatInput.scss';
 import { Button, Input } from 'antd';
+import { Upload } from '..';
 
 const ChatInput = (props) => {
   const [value, setValue] = React.useState('');
+  const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+
+  const toggleEmojiPicker = () => setEmojiPickerVisible(!emojiPickerVisible);
+
   return (
     <div className="chat-input">
       <div className="chat-input__smile">
-        <Button type="text" icon={<SmileOutlined />} />
+        {emojiPickerVisible && (
+          <div className="chat-input__emoji-picker">
+            <Picker set="apple" showPreview={false} showSkinTones={false} />
+          </div>
+        )}
+        <Button
+          onClick={toggleEmojiPicker}
+          type="text"
+          icon={<SmileOutlined />}
+        />
       </div>
       <Input
         onChange={(e) => setValue(e.target.value)}
@@ -25,7 +40,9 @@ const ChatInput = (props) => {
         placeholder="Write a message..."
       />
       <div className="chat-input__actions">
-        <Button type="text" icon={<CameraOutlined />} />
+        <Upload>
+          <Button type="text" icon={<CameraOutlined />} />
+        </Upload>
         {value ? (
           <Button type="text" icon={<SendOutlined />} />
         ) : (

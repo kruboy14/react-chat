@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { MESSAGES_SET_ITEMS, MESSAGES_SET_LOADING } from '../actionsTypes';
 
 const initialState = {
-  items: [],
+  items: null,
   isLoading: false,
 };
 const messagesReducer = createReducer(initialState, {

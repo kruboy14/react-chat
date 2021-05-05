@@ -1,10 +1,13 @@
+import axios from 'axios';
 import { withFormik } from 'formik';
+
+import { openNotification } from '../../../utils/helpers';
 import validation from '../../../utils/validations';
 import LoginForm from '../components/LoginForm';
 
 export default withFormik({
   mapPropsToValues: () => ({
-    username: '',
+    email: '',
     password: '',
   }),
   validate: (values) => {
@@ -15,11 +18,25 @@ export default withFormik({
     return errors;
   },
 
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
+  handleSubmit: async (values, { setSubmitting }) => {
+    try {
+      const { data } = await axios.post('/user/login', values);
       setSubmitting(false);
-    }, 1000);
+      // localStorage.token = data.token;
+      openNotification({
+        title: 'Success',
+        text: 'Successful Authorization',
+        type: 'success',
+      });
+    } catch (error) {
+      if (error.response.status === 403) {
+        openNotification({
+          title: 'Error',
+          text: 'Wrong password or email',
+          type: 'error',
+        });
+      }
+    }
   },
 
   displayName: 'LoginForm',
