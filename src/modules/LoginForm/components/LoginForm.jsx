@@ -2,12 +2,16 @@ import React from 'react';
 import { Form, Input, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
+import validation from '../../../utils/validations';
 import { Button, Block } from 'components';
 import { Link } from 'react-router-dom';
 import { helpText, validStatus } from 'utils/helpers';
+import { useFormik } from 'formik';
+import { userActions } from '../../../redux/actions';
 
-const LoginForm = (props) => {
+const LoginForm = () => {
   const {
     values,
     touched,
@@ -16,8 +20,30 @@ const LoginForm = (props) => {
     handleBlur,
     handleSubmit,
     isSubmitting,
-  } = props;
+  } = useFormik({
+    initialValues: () => ({
+      email: '',
+      password: '',
+    }),
+    validate: (values) => {
+      const errors = {};
 
+      validation({ isAuth: true, values, errors });
+
+      return errors;
+    },
+
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        await dispatch(userActions.fetchUserLogin(values));
+        setSubmitting(false);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    displayName: 'LoginForm',
+  });
   const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log('Received values of form: ', values);

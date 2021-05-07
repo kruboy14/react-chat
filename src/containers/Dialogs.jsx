@@ -31,7 +31,6 @@ const Dialogs = ({ ...props }) => {
       ),
     );
   };
-
   return (
     <BaseDialogs
       {...props}

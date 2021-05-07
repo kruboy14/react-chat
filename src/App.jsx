@@ -1,14 +1,18 @@
-import { Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 import { Auth, Home } from './pages';
+import { selectUser } from './redux/selectors';
 
-function App() {
+const App = () => {
+  const isAuth = useSelector(selectUser);
   return (
     <div className="wrapper">
-      <Route exact path={['/', '/login', '/register']} component={Auth} />
-      <Route exact path='/im' component={Home} />
+      {isAuth ? <Redirect to="/im" /> : <Redirect to="/login" />}
+      <Route exact path={['/', '/login', '/signup']} component={Auth} />
+      <Route path="/im" component={Home} />
     </div>
   );
-}
+};
 
 export default App;
