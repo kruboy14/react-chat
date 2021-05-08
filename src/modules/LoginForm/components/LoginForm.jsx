@@ -38,11 +38,10 @@ const LoginForm = () => {
         await dispatch(userActions.fetchUserLogin(values));
         setSubmitting(false);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     },
 
-    displayName: 'LoginForm',
   });
   const dispatch = useDispatch();
   const onFinish = (values) => {

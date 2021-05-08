@@ -8,8 +8,13 @@ const App = () => {
   const isAuth = useSelector(selectUser);
   return (
     <div className="wrapper">
-      {isAuth ? <Redirect to="/im" /> : <Redirect to="/login" />}
-      <Route exact path={['/', '/login', '/signup']} component={Auth} />
+      {/* {isAuth ? <Redirect to="/im" /> : <Redirect to="/login" />} */}
+      <Route
+        exact
+        path={['/', '/login', '/signup', '/register', '/register/verify']}
+        component={Auth}
+        />
+
       <Route path="/im" component={Home} />
     </div>
   );

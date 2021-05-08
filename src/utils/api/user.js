@@ -2,6 +2,8 @@ import { axios } from '../../core';
 
 const userApi = {
   login: (postData) => axios.post('/user/login', postData),
-  getMe: (postData) => axios.get('/user/me'),
+  getMe: () => axios.get('/user/me'),
+  verifyHash: (hash) => axios.get(`/user/verify?hash=${hash}`),
+  register: (postData) => axios.post('/user/regestration', postData),
 };
 export default userApi;

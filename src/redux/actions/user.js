@@ -13,7 +13,6 @@ const Actions = {
   fetchUserLogin: (postData) => async (dispatch) => {
     try {
       const { data } = await userApi.login(postData);
-      // dispatch(Actions.setUserData(data));
       window.axios.defaults.headers.common['token'] = data.token;
       window.localStorage['token'] = data.token;
       dispatch(Actions.fetchUserData(data));
@@ -26,6 +25,19 @@ const Actions = {
       openNotification({
         title: 'Error',
         text: 'Wrong password or email',
+        type: 'error',
+      });
+    }
+  },
+  fetchUserRegister: (postData) => async (dispacth) => {
+    try {
+      const {data} = await userApi.register(postData);
+      console.log(data);
+    } catch ( {response} ) {
+      console.log(response);
+      openNotification({
+        title: 'Regestration Error',
+        text: 'Wrong form for registration',
         type: 'error',
       });
     }
