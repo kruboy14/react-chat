@@ -1,4 +1,4 @@
-import { Result } from 'antd';
+import {  Button, Result } from 'antd';
 import React from 'react';
 
 import './CheckEmailInfo.scss';
@@ -6,7 +6,7 @@ import { Block } from 'components';
 import userApi from '../../../utils/api/user';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { canInstrument } from 'babel-jest';
+
 
 const renderTextInfo = ({ hash, verified }) => {
   if (hash) {
@@ -32,10 +32,10 @@ const renderTextInfo = ({ hash, verified }) => {
   }
 };
 
-const CheckEmailInfo = ({ location }) => {
+const CheckEmailInfo = ({ location, history }) => {
   const [verified, setVerify] = useState(false);
   const hash = location.search.split('hash=')[1];
-  const info = renderTextInfo(hash, verified);
+  const info = renderTextInfo({ hash, verified });
   useEffect(() => {
     async function checkHash() {
       const { data } = await userApi.verifyHash(hash);
@@ -56,8 +56,14 @@ const CheckEmailInfo = ({ location }) => {
           status={info.status}
           title={info.title}
           subTitle={info.message}
+          extra={
+            verified && (
+              <Button size='large' type="primary" onClick={() => history.push('/login')}>
+                Log in
+              </Button>
+            )
+          }
         />
-        ,
       </Block>
     </div>
   );

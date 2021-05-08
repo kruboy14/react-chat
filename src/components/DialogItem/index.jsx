@@ -24,13 +24,14 @@ const getMessageTime = (createdAt) => {
 };
 
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
+  console.log(message.read);
   const dispatch = useDispatch();
-  const currentDialogID = useSelector(selectCurrentDialogID)
+  const currentDialogID = useSelector(selectCurrentDialogID);
   return (
     <div
       className={classNames('dialog__item', {
         'dialog__item-online': user.isOnline,
-        'active': currentDialogID === _id,
+        active: currentDialogID === _id,
         'dialog__item-notick-nocount': !unread && !isMe,
       })}
       onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>
@@ -52,7 +53,7 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
             <p>{message.text}</p>
           </div>
           <div className="dialog__item-content-tick">
-            {isMe && <IconRead isRead={message.isRead} />}
+            {isMe && <IconRead isRead={message.read} />}
           </div>
           {unread > 0 && (
             <div className="dialog__item-content-count">

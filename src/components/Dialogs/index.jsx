@@ -6,7 +6,6 @@ import orderBy from 'lodash/orderBy';
 import { Input, Empty } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const Dialogs = ({ items, userID, onChange, inputValue }) => {
-
   return (
     <React.Fragment>
       <div className="chat__sidebar-search">
@@ -28,9 +27,8 @@ const Dialogs = ({ items, userID, onChange, inputValue }) => {
           ).map((item, index) => (
             <DialogItem
               _id={item._id}
-              // temp key till Mongo connect
-              key={item._id || index}
-              user={item.user}
+              key={item._id}
+              user={item.partner}
               message={item.lastMessage}
               unread={0}
               isMe={item._id === userID}

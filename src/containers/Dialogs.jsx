@@ -14,7 +14,8 @@ const Dialogs = ({ ...props }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    if (!items.length) {
+    console.log(0);
+    if (!items) {
       dispatch(dialogsActions.fetchDialogs());
     } else {
       setFilter(items);
