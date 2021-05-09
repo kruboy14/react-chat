@@ -21,14 +21,13 @@ const LoginForm = () => {
     handleSubmit,
     isSubmitting,
   } = useFormik({
-    initialValues: () => ({
+    initialValues: {
       email: '',
       password: '',
-    }),
+    },
     validate: (values) => {
       const errors = {};
-
-      validation({ isAuth: true, values, errors });
+        validation({ isAuth: true, values, errors });
 
       return errors;
     },
@@ -41,7 +40,6 @@ const LoginForm = () => {
         console.log(error);
       }
     },
-
   });
   const dispatch = useDispatch();
   const onFinish = (values) => {

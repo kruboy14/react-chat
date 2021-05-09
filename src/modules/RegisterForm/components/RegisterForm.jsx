@@ -26,12 +26,12 @@ const RegisterForm = () => {
     handleSubmit,
     isSubmitting,
   } = useFormik({
-    initialValues: () => ({
+    initialValues: {
       email: '',
       username: '',
       password: '',
       password2: '',
-    }),
+    },
     validate: (values) => {
       const errors = {};
 
@@ -45,7 +45,7 @@ const RegisterForm = () => {
         await dispatch(userActions.fetchUserRegister(values));
         setSubmitting(false);
       } catch (error) {
-        console.log("err",error);
+        console.log('err', error);
       }
     },
   });
@@ -55,7 +55,6 @@ const RegisterForm = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
-
   return (
     <div>
       <div className="auth__top">
@@ -79,9 +78,6 @@ const RegisterForm = () => {
             name="normal_login"
             className="login-form"
             onSubmit={handleSubmit}
-            initialValues={{
-              remember: true,
-            }}
             onFinish={onFinish}>
             <FormItem
               name="email"
