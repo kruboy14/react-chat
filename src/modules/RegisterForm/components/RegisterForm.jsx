@@ -28,7 +28,7 @@ const RegisterForm = () => {
   } = useFormik({
     initialValues: {
       email: '',
-      username: '',
+      fullname: '',
       password: '',
       password2: '',
     },

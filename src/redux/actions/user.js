@@ -32,7 +32,7 @@ const Actions = {
   fetchUserRegister: (postData) => async (dispacth) => {
     try {
       const {data} = await userApi.register(postData);
-      console.log(data);
+      console.log('register',data);
     } catch ( {response} ) {
       console.log(response);
       openNotification({

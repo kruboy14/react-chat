@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dialogs as BaseDialogs } from '../components';
+import socket from '../core/socket';
 import { dialogsActions } from '../redux/actions';
 import { selectAllDialogs } from '../redux/selectors';
 
@@ -14,7 +15,6 @@ const Dialogs = ({ ...props }) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log(0);
     if (!items) {
       dispatch(dialogsActions.fetchDialogs());
     } else {
@@ -32,6 +32,11 @@ const Dialogs = ({ ...props }) => {
       ),
     );
   };
+  socket.on("SERVER:DIALOG_CREATED", (data)=> {
+    console.log(data);
+    dispatch(dialogsActions.fetchDialogs());
+  })
+
   return (
     <BaseDialogs
       {...props}

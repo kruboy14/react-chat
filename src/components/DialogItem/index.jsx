@@ -9,6 +9,7 @@ import isThisWeek from 'date-fns/isThisWeek';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogsActions } from '../../redux/actions';
 import { selectCurrentDialogID } from '../../redux/selectors';
+import { Link } from 'react-router-dom';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -24,45 +25,46 @@ const getMessageTime = (createdAt) => {
 };
 
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
-  console.log(message.read);
   const dispatch = useDispatch();
   const currentDialogID = useSelector(selectCurrentDialogID);
   return (
-    <div
-      className={classNames('dialog__item', {
-        'dialog__item-online': user.isOnline,
-        active: currentDialogID === _id,
-        'dialog__item-notick-nocount': !unread && !isMe,
-      })}
-      onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>
-      <div className="dialog__item-avatar">
-        {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
-        <Avatar user={user} />
-      </div>
-      <div className="dialog__item-content">
-        <div className="dialog__item-content-top">
-          <div className="dialog__item-content-name">
-            <span>{user.fullname}</span>
-          </div>
-          <div className="dialog__item-content-time">
-            {getMessageTime(message.createdAt)}
-          </div>
+    <Link to={`/dialog/${_id}`}>
+      <div
+        className={classNames('dialog__item', {
+          'dialog__item-online': user.isOnline,
+          active: currentDialogID === _id,
+          'dialog__item-notick-nocount': !unread && !isMe,
+        })}
+        onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>
+        <div className="dialog__item-avatar">
+          {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
+          <Avatar user={user} />
         </div>
-        <div className="dialog__item-content-bottom">
-          <div className="dialog__item-content-text">
-            <p>{message.text}</p>
-          </div>
-          <div className="dialog__item-content-tick">
-            {isMe && <IconRead isRead={message.read} />}
-          </div>
-          {unread > 0 && (
-            <div className="dialog__item-content-count">
-              {unread > 9 ? '+9' : unread}
+        <div className="dialog__item-content">
+          <div className="dialog__item-content-top">
+            <div className="dialog__item-content-name">
+              <span>{user.fullname}</span>
             </div>
-          )}
+            <div className="dialog__item-content-time">
+              {getMessageTime(message.createdAt)}
+            </div>
+          </div>
+          <div className="dialog__item-content-bottom">
+            <div className="dialog__item-content-text">
+              <p>{message.text}</p>
+            </div>
+            <div className="dialog__item-content-tick">
+              {isMe && <IconRead isRead={message.read} />}
+            </div>
+            {unread > 0 && (
+              <div className="dialog__item-content-count">
+                {unread > 9 ? '+9' : unread}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

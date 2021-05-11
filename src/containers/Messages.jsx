@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Messages as BaseMessages } from '../components';
+import socket from '../core/socket';
 import { messagesActions } from '../redux/actions';
 import {
   selectAllMessages,
@@ -21,9 +22,17 @@ const Messages = () => {
   React.useEffect(() => {
     if (currentDialogID)
       dispatch(messagesActions.fetchMessages(currentDialogID));
-      
-  }, [currentDialogID, dispatch]);
 
+    socket.emit('room', currentDialogID);
+    socket.on('SERVER:MESSAGE_CREATED', (data) =>
+      dispatch(messagesActions.fetchMessages(currentDialogID)),
+    );
+    console.log(currentDialogID);
+    return () => {
+      socket.emit('room', currentDialogID);
+      socket.off('SERVER:MESSAGE_CREATED');
+    };
+  }, [currentDialogID, dispatch]);
   React.useEffect(() => {
     scrollRef.current.scrollTo(0, scrollRef.current.scrollHeight);
   }, [AllMessages]);

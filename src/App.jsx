@@ -15,7 +15,7 @@ const App = () => {
         component={Auth}
         />
 
-      <Route path="/im" component={Home} />
+      <Route path={["/im", '/dialog/:id']} component={Home} />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import store from './redux/store';
 
 import './styles/index.scss';
 import 'emoji-mart/css/emoji-mart.css';
+import socket from './core/socket'
 
 ReactDOM.render(
   <React.StrictMode>

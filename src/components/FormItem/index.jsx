@@ -27,7 +27,7 @@ const FormItem = ({
         placeholder={placeholder}
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values[name]}
+        defaultValue={values[name]}
       />
     </Form.Item>
   );

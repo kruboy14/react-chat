@@ -27,7 +27,7 @@ const LoginForm = () => {
     },
     validate: (values) => {
       const errors = {};
-        validation({ isAuth: true, values, errors });
+      validation({ isAuth: true, values, errors });
 
       return errors;
     },
@@ -45,6 +45,7 @@ const LoginForm = () => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
+
   return (
     <div>
       <div className="auth__top">
@@ -72,7 +73,7 @@ const LoginForm = () => {
               placeholder="Email"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.email}
+              defaultValue={values.email}
             />
           </Form.Item>
           <Form.Item
@@ -87,7 +88,7 @@ const LoginForm = () => {
               type="password"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.password}
+              defaultValue={values.password}
               placeholder="Password"
             />
           </Form.Item>
