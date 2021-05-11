@@ -90,8 +90,8 @@ const RegisterForm = () => {
               handleBlur={handleBlur}
             />
             <FormItem
-              name="username"
-              placeholder="Username"
+              name="fullname"
+              placeholder="fullname"
               touched={touched}
               errors={errors}
               values={values}

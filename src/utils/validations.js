@@ -8,11 +8,11 @@ const validation = ({ isAuth, values, errors }) => {
       }
     },
 
-    username: (value) => {
+    fullname: (value) => {
       if (!value) {
-        errors.username = 'Enter your username';
+        errors.fullname = 'Enter your fullname';
       } else if (!/^.{6,}$/.test(value)) {
-        errors.username = 'At least 6 characters';
+        errors.fullname = 'At least 6 characters';
       }
     },
     password: (value) => {

@@ -20,14 +20,15 @@ const Messages = () => {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    if (currentDialogID)
+    if (currentDialogID) {
       dispatch(messagesActions.fetchMessages(currentDialogID));
 
-    socket.emit('room', currentDialogID);
-    socket.on('SERVER:MESSAGE_CREATED', (data) =>
-      dispatch(messagesActions.fetchMessages(currentDialogID)),
-    );
-    console.log(currentDialogID);
+      socket.emit('room', currentDialogID);
+      socket.on('SERVER:MESSAGE_CREATED', (data) =>
+        dispatch(messagesActions.fetchMessages(currentDialogID)),
+      );
+      console.log(currentDialogID);
+    }
     return () => {
       socket.emit('room', currentDialogID);
       socket.off('SERVER:MESSAGE_CREATED');
