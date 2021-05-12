@@ -5,7 +5,7 @@ import { DialogItem } from '..';
 import orderBy from 'lodash/orderBy';
 import { Input, Empty } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-const Dialogs = ({ items, userID, onChange, inputValue }) => {
+const Dialogs = ({ items, user, onChange, inputValue }) => {
   return (
     <React.Fragment>
       <div className="chat__sidebar-search">
@@ -24,14 +24,14 @@ const Dialogs = ({ items, userID, onChange, inputValue }) => {
               return Date.parse(item.createdAt);
             },
             'desc',
-          ).map((item, index) => (
+          ).map((item) => (
             <DialogItem
               _id={item._id}
               key={item._id}
-              user={item.partner}
+              user={item.author._id === user._id ? item.partner : item.author}
               message={item.lastMessage}
               unread={0}
-              isMe={item._id === userID}
+              isMe={item.author._id === user._id}
             />
           ))
         ) : (

@@ -1,5 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { MESSAGES_SET_ITEMS, MESSAGES_SET_LOADING } from '../actionsTypes';
+import {
+  MESSAGES_SET_ITEMS,
+  MESSAGES_SET_LOADING,
+  MESSAGE_ADD_ITEM,
+} from '../actionsTypes';
 
 const initialState = {
   items: null,
@@ -12,6 +16,9 @@ const messagesReducer = createReducer(initialState, {
   },
   [MESSAGES_SET_LOADING]: (state, action) => {
     state.isLoading = action.payload;
+  },
+  [MESSAGE_ADD_ITEM]: (state, action) => {
+    state.items.push(action.payload);
   },
 });
 

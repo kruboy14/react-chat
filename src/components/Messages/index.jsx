@@ -4,7 +4,7 @@ import { Empty, Spin } from 'antd';
 import { Message } from '..';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const Messages = ({ scrollRef, isLoading, items }) => {
+const Messages = ({ scrollRef, isLoading, items, user }) => {
   return (
     <div ref={scrollRef} className="chat__dialog-messages-box">
       {isLoading ? (
@@ -15,7 +15,9 @@ const Messages = ({ scrollRef, isLoading, items }) => {
         />
       ) : items ? (
         items.length > 0 ? (
-          items.map((item) => <Message {...item} />)
+          items.map((item) => (
+            <Message {...item} user={user} isMe={user._id === item.user._id} />
+          ))
         ) : (
           <Empty description="No message" />
         )

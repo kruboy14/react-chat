@@ -8,6 +8,7 @@ import {
   selectAllMessages,
   selectCurrentDialogID,
   selectIsLoading,
+  selectUserData,
 } from '../redux/selectors';
 
 const Messages = () => {
@@ -15,19 +16,20 @@ const Messages = () => {
   const scrollRef = React.useRef(null);
 
   const currentDialogID = useSelector(selectCurrentDialogID);
-  const AllMessages = useSelector(selectAllMessages);
+  const allMessages = useSelector(selectAllMessages);
   const isLoading = useSelector(selectIsLoading);
+  const user = useSelector(selectUserData);
 
   const dispatch = useDispatch();
   React.useEffect(() => {
+    // if (currentDialogID && !allMessages.length) {}
     if (currentDialogID) {
       dispatch(messagesActions.fetchMessages(currentDialogID));
 
       socket.emit('room', currentDialogID);
-      socket.on('SERVER:MESSAGE_CREATED', (data) =>
-        dispatch(messagesActions.fetchMessages(currentDialogID)),
-      );
-      console.log(currentDialogID);
+      socket.on('SERVER:MESSAGE_CREATED', (msg) => {
+        dispatch(messagesActions.addMessage(msg));
+      });
     }
     return () => {
       socket.emit('room', currentDialogID);
@@ -36,13 +38,14 @@ const Messages = () => {
   }, [currentDialogID, dispatch]);
   React.useEffect(() => {
     scrollRef.current.scrollTo(0, scrollRef.current.scrollHeight);
-  }, [AllMessages]);
+  }, [allMessages]);
 
   return (
     <BaseMessages
-      items={AllMessages}
+      items={allMessages}
       isLoading={isLoading}
       scrollRef={scrollRef}
+      user={user}
     />
   );
 };

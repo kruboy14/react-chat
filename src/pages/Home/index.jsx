@@ -31,12 +31,7 @@ const Home = () => {
         <div className="chat__dialog">
           <div className="chat__dialog-header">
             <div></div>
-            <div className="chat__dialog-header-content">
-              <b className="chat__dialog-username">Artem Minist</b>
-              <div className="chat__dialog-status">
-                <Status online />
-              </div>
-            </div>
+            <Status />
             <Button type="text" icon={<EllipsisOutlined />} />
           </div>
           <div className="chat__dialog-messages">

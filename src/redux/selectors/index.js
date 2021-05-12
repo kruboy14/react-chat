@@ -4,4 +4,5 @@ export const selectCurrentDialogID = (state) => state.dialogs.currentDialogID;
 export const selectAllMessages = (state) => state.messages.items;
 export const selectIsLoading = (state) => state.messages.isLoading;
 
-export const selectUser = (state) => state.user.isAuth;
+export const selectUserAuth = (state) => state.user.isAuth;
+export const selectUserData= (state) => state.user.data;

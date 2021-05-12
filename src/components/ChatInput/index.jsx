@@ -12,13 +12,25 @@ import {
 import './ChatInput.scss';
 import { Button, Input } from 'antd';
 import { Upload } from '..';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { selectCurrentDialogID } from 'redux/selectors';
+import { messagesActions } from 'redux/actions';
 
-const ChatInput = (props) => {
+const ChatInput = ({ onSentMessage }) => {
   const [value, setValue] = React.useState('');
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
 
   const toggleEmojiPicker = () => setEmojiPickerVisible(!emojiPickerVisible);
+  const dispatch = useDispatch();
+  const currentDialogID = useSelector(selectCurrentDialogID);
 
+  const handleSendMsg = (e) => {
+    if (e.key === 'Enter' && value) {
+      dispatch(messagesActions.fetchSendMessage(value, currentDialogID));
+      setValue('');
+    }
+  };
   return (
     <div className="chat-input">
       <div className="chat-input__smile">
@@ -35,6 +47,7 @@ const ChatInput = (props) => {
       </div>
       <Input
         onChange={(e) => setValue(e.target.value)}
+        onKeyUp={handleSendMsg}
         value={value}
         size="large"
         placeholder="Write a message..."
@@ -44,7 +57,7 @@ const ChatInput = (props) => {
           <Button type="text" icon={<CameraOutlined />} />
         </Upload>
         {value ? (
-          <Button type="text" icon={<SendOutlined />} />
+          <Button type="text" icon={<SendOutlined />}  onClick={handleSendMsg}/>
         ) : (
           <Button type="text" icon={<AudioOutlined />} />
         )}
