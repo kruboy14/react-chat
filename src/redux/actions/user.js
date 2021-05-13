@@ -1,14 +1,22 @@
 import { createAction } from '@reduxjs/toolkit';
 import { userApi } from 'utils/api';
-import { USER_SET_DATA } from '../actionsTypes';
+import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 import { openNotification } from 'utils/helpers';
 
 const Actions = {
   setUserData: createAction(USER_SET_DATA),
+  setIsAuth: createAction(USER_SET_IS_AUTH),
   fetchUserData: () => async (dispatch) => {
-    const { data } = await userApi.getMe();
-    dispatch(Actions.setUserData(data));
+    try {
+      const { data } = await userApi.getMe();
+      dispatch(Actions.setUserData(data));
+    } catch ({ response }) {
+      if (response.status === 403) {
+        dispatch(Actions.setIsAuth(false));
+        delete window.localStorage['token'];
+      }
+    }
   },
   fetchUserLogin: (postData) => async (dispatch) => {
     try {
@@ -31,9 +39,9 @@ const Actions = {
   },
   fetchUserRegister: (postData) => async (dispacth) => {
     try {
-      const {data} = await userApi.register(postData);
-      console.log('register',data);
-    } catch ( {response} ) {
+      const { data } = await userApi.register(postData);
+      console.log('register', data);
+    } catch ({ response }) {
       console.log(response);
       openNotification({
         title: 'Regestration Error',

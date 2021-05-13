@@ -6,7 +6,7 @@ import socket from '../core/socket';
 import { dialogsActions } from '../redux/actions';
 import { selectAllDialogs, selectUserData } from '../redux/selectors';
 
-const Dialogs = ({ ...props }) => {
+const Dialogs = () => {
   const [inputValue, setValue] = React.useState('');
   const [filter, setFilter] = React.useState([]);
 
@@ -26,7 +26,6 @@ const Dialogs = ({ ...props }) => {
     }
     return () => {
       socket.off('SERVER:DIALOG_CREATED');
-
     };
   }, [dispatch, items]);
 
@@ -47,7 +46,6 @@ const Dialogs = ({ ...props }) => {
 
   return (
     <BaseDialogs
-      {...props}
       user={user}
       items={filter}
       onChange={onChange}

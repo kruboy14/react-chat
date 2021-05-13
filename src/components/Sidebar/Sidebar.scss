@@ -1,0 +1,17 @@
+.chat__sidebar {
+  &-select {
+    width: 100%;
+    margin-bottom: 15px !important;
+  }
+  &-text {
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+  }
+  &-friend {
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+  }
+}

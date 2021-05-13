@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { USER_SET_DATA } from '../actionsTypes';
+import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 const initialState = {
   data: null,
@@ -12,6 +12,9 @@ const messagesReducer = createReducer(initialState, {
     state.data = action.payload;
     state.isAuth = true;
     state.token = window.localStorage.token;
+  },
+  [USER_SET_IS_AUTH]: (state, action) => {
+    state.isAuth = action.payload;
   },
 });
 

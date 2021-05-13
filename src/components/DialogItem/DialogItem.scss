@@ -9,9 +9,8 @@
   align-items: center;
   cursor: pointer;
   color: $black;
-   &:hover {
+  &:hover {
     background-color: #f3f7ff;
-          
   }
   &.active {
     background-color: #5a74ef;
@@ -21,12 +20,14 @@
     }
 
     .dialog__item-content-text {
-      
-        opacity: 1;
-
-      
+      opacity: 1;
     }
-    
+    .message__checkedTick {
+      path {
+        fill: #fff !important;
+        // color: #000 !important;
+      }
+    }
   }
   &-avatar {
     position: relative;
@@ -34,16 +35,14 @@
     width: 40px;
     height: 40px;
     img {
-      
       border-radius: 50%;
     }
-
   }
 
-  &-online{
-    #{$self}-avatar{
-      &::before{
-        content: "";
+  &-online {
+    #{$self}-avatar {
+      &::before {
+        content: '';
         display: block;
         position: absolute;
         background-color: $green;
@@ -78,17 +77,17 @@
     }
 
     &-time {
-      opacity: .6;
+      opacity: 0.6;
     }
 
     &-text {
-      opacity: .6;
-      max-width:220px;
+      opacity: 0.6;
+      max-width: 220px;
       width: 100%;
       padding-right: 5px;
       p {
         line-height: 1.3;
-       
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -96,10 +95,7 @@
     }
 
     &-tick {
-      img {
-        margin: 0;
-      }
-      
+      max-height: 11px;
     }
     &-count {
       position: absolute;
@@ -112,7 +108,7 @@
       width: 100%;
       min-width: 20px;
       height: 16px;
-      
+
       text-align: center;
       line-height: 15px;
       font-size: 11px;

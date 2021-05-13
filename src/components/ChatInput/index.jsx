@@ -31,6 +31,9 @@ const ChatInput = ({ onSentMessage }) => {
       setValue('');
     }
   };
+  if(!currentDialogID) {
+    return <div/>
+  }
   return (
     <div className="chat-input">
       <div className="chat-input__smile">
