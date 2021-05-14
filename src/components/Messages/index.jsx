@@ -16,7 +16,12 @@ const Messages = ({ scrollRef, isLoading, items, user }) => {
       ) : items ? (
         items.length > 0 ? (
           items.map((item) => (
-            <Message {...item} user={user} isMe={user._id === item.user._id} />
+            <Message
+              {...item}
+              user={user}
+              isMe={user._id === item.user._id}
+              id={item._id}
+            />
           ))
         ) : (
           <Empty description="No message" />

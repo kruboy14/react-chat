@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Popover } from 'antd';
 
 import waveSvg from 'assets/img/wave.svg';
 import playSvg from 'assets/img/play.svg';
@@ -9,6 +10,8 @@ import './Message.scss';
 import classNames from 'classnames';
 import { Avatar, IconRead, Time } from '..';
 import { convertCurrentTime } from 'utils/helpers';
+import { useDispatch } from 'react-redux';
+import { messagesActions } from '../../redux/actions';
 
 const Message = ({
   avatar,
@@ -20,7 +23,18 @@ const Message = ({
   isRead,
   attachments,
   isTyping,
+  id,
 }) => {
+  const [valuePopup, setValuePopup] = React.useState(false);
+
+  const dispatch = useDispatch();
+  const handleVisibleChange = (visible) => {
+    setValuePopup(visible);
+  };
+  const deleteMessage = () => {
+    dispatch(messagesActions.removeMessageByID(id));
+    setValuePopup(false);
+  };
   const MessageAudio = ({ audioSrc }) => {
     const [isPlaying, setPlay] = React.useState(false);
     const [currentTime, setCurrentTime] = React.useState(0);
@@ -96,7 +110,31 @@ const Message = ({
       </div>
       <div className="message__content">
         <div className="message__item">
-          {(audio || text || isTyping) && (
+          {(audio || text || isTyping) && isMe ? (
+            <Popover
+              content={
+                <a onClick={() => deleteMessage()} href>
+                  Delete Message
+                </a>
+              }
+              visible={valuePopup}
+              trigger="contextMenu"
+              onVisibleChange={handleVisibleChange}>
+              <div className="message__bubble me">
+                {text && <p className="message__text">{text}</p>}
+                {isTyping && (
+                  <div className="message__typing">
+                    <div id="wave">
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                    </div>
+                  </div>
+                )}
+                {audio && <MessageAudio audioSrc={audio} />}
+              </div>
+            </Popover>
+          ) : (
             <div className="message__bubble">
               {text && <p className="message__text">{text}</p>}
               {isTyping && (

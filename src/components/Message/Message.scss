@@ -37,6 +37,7 @@
   }
 
   &__bubble {
+    
     display: inline-block;
     padding: 15px;
     position: relative;
@@ -46,6 +47,9 @@
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
     margin-bottom: 8px;
     margin-right: 8px;
+    &.me {
+      cursor: pointer;
+    }
   }
 
   &__text {

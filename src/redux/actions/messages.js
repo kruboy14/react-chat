@@ -4,14 +4,20 @@ import {
   MESSAGES_SET_ITEMS,
   MESSAGES_SET_LOADING,
   MESSAGE_ADD_ITEM,
+  MESSAGE_REMOVE_ITEM,
 } from '../actionsTypes';
 
 const Actions = {
   setMessages: createAction(MESSAGES_SET_ITEMS),
   setIsLoading: createAction(MESSAGES_SET_LOADING),
   addMessage: createAction(MESSAGE_ADD_ITEM),
+  removeMessage: createAction(MESSAGE_REMOVE_ITEM),
   fetchSendMessage: (text, dialogID) => (dispatch) => {
     return messagesApi.send(text, dialogID);
+  },
+  removeMessageByID: (id) => async (dispatch) => {
+    const { data } = await messagesApi.removeById(id);
+    dispatch(Actions.removeMessage(id));
   },
   fetchMessages: (dialogID) => async (dispatch) => {
     dispatch(Actions.setIsLoading(true));

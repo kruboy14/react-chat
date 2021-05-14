@@ -3,6 +3,7 @@ import {
   MESSAGES_SET_ITEMS,
   MESSAGES_SET_LOADING,
   MESSAGE_ADD_ITEM,
+  MESSAGE_REMOVE_ITEM,
 } from '../actionsTypes';
 
 const initialState = {
@@ -19,6 +20,11 @@ const messagesReducer = createReducer(initialState, {
   },
   [MESSAGE_ADD_ITEM]: (state, action) => {
     state.items.push(action.payload);
+  },
+  [MESSAGE_REMOVE_ITEM]: (state, action) => {
+    state.items = state.items.filter((item) => {
+      return item._id !== action.payload;
+    });
   },
 });
 
