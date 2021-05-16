@@ -32,9 +32,23 @@ const ChatInput = ({ onSentMessage }) => {
       setValue('');
     }
   };
+
   const hanldeEmojiSelect = ({ colons }) => {
     setValue(value + colons);
   };
+
+  const handleOutsideClick = (el) => (e) => {
+    if (el && !el.contains(e.target)) {
+      setEmojiPickerVisible(false);
+    }
+  };
+  React.useEffect(() => {
+    const el = document.querySelector('.chat-input__smile');
+    document.addEventListener('click', handleOutsideClick(el));
+    return () => {
+      document.removeEventListener('click', handleOutsideClick(el));
+    };
+  }, []);
   if (!currentDialogID) {
     return <div />;
   }
