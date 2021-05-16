@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectCurrentDialogID } from 'redux/selectors';
 import { messagesActions } from 'redux/actions';
+import TextArea from 'antd/lib/input/TextArea';
 
 const ChatInput = ({ onSentMessage }) => {
   const [value, setValue] = React.useState('');
@@ -26,20 +27,28 @@ const ChatInput = ({ onSentMessage }) => {
   const currentDialogID = useSelector(selectCurrentDialogID);
 
   const handleSendMsg = (e) => {
-    if (e.key === 'Enter' && value) {
+    if (e.key === 'Enter' && value.length > 1) {
       dispatch(messagesActions.fetchSendMessage(value, currentDialogID));
       setValue('');
     }
   };
-  if(!currentDialogID) {
-    return <div/>
+  const hanldeEmojiSelect = ({ colons }) => {
+    setValue(value + colons);
+  };
+  if (!currentDialogID) {
+    return <div />;
   }
   return (
     <div className="chat-input">
       <div className="chat-input__smile">
         {emojiPickerVisible && (
           <div className="chat-input__emoji-picker">
-            <Picker set="apple" showPreview={false} showSkinTones={false} />
+            <Picker
+              set="apple"
+              onSelect={hanldeEmojiSelect}
+              showPreview={false}
+              showSkinTones={false}
+            />
           </div>
         )}
         <Button
@@ -48,19 +57,20 @@ const ChatInput = ({ onSentMessage }) => {
           icon={<SmileOutlined />}
         />
       </div>
-      <Input
+      <TextArea
         onChange={(e) => setValue(e.target.value)}
         onKeyUp={handleSendMsg}
         value={value}
         size="large"
         placeholder="Write a message..."
+        autoSize={{ minRows: 1, maxRows: 4 }}
       />
       <div className="chat-input__actions">
         <Upload>
           <Button type="text" icon={<CameraOutlined />} />
         </Upload>
         {value ? (
-          <Button type="text" icon={<SendOutlined />}  onClick={handleSendMsg}/>
+          <Button type="text" icon={<SendOutlined />} onClick={handleSendMsg} />
         ) : (
           <Button type="text" icon={<AudioOutlined />} />
         )}

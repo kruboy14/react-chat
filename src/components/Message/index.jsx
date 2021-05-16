@@ -13,6 +13,9 @@ import { convertCurrentTime } from 'utils/helpers';
 import { useDispatch } from 'react-redux';
 import { messagesActions } from '../../redux/actions';
 
+import reactStringReplace from 'react-string-replace';
+import { Emoji } from 'emoji-mart';
+
 const Message = ({
   avatar,
   user,
@@ -25,6 +28,8 @@ const Message = ({
   isTyping,
   id,
 }) => {
+  console.log();
+
   const [valuePopup, setValuePopup] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -121,7 +126,13 @@ const Message = ({
               trigger="contextMenu"
               onVisibleChange={handleVisibleChange}>
               <div className="message__bubble me">
-                {text && <p className="message__text">{text}</p>}
+                {text && (
+                  <p className="message__text">
+                    {reactStringReplace(text, /:(.+?):/g, (match, i) => (
+                    <Emoji key={i} emoji={match} set="apple" size={16} />
+                  ))}
+                  </p>
+                )}
                 {isTyping && (
                   <div className="message__typing">
                     <div id="wave">
@@ -136,7 +147,13 @@ const Message = ({
             </Popover>
           ) : (
             <div className="message__bubble">
-              {text && <p className="message__text">{text}</p>}
+              {text && (
+                <p className="message__text">
+                  {reactStringReplace(text, /:(.+?):/g, (match, i) => (
+                    <Emoji key={i} emoji={match} set="apple" size={16} />
+                  ))}
+                </p>
+              )}
               {isTyping && (
                 <div className="message__typing">
                   <div id="wave">
