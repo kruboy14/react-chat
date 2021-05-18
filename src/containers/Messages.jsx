@@ -22,9 +22,12 @@ const Messages = () => {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    // if (currentDialogID && !allMessages.length) {}
+
+    (async () => {
+     
+   
     if (currentDialogID) {
-      dispatch(messagesActions.fetchMessages(currentDialogID));
+     await dispatch(messagesActions.fetchMessages(currentDialogID));
 
       socket.emit('room', currentDialogID);
       socket.on('SERVER:MESSAGE_CREATED', (msg) => {
@@ -37,6 +40,7 @@ const Messages = () => {
         dispatch(messagesActions.myMsgRead(userId));
       });
     }
+  })();
     return () => {
       socket.emit('room', currentDialogID);
       socket.off('SERVER:MESSAGE_CREATED');

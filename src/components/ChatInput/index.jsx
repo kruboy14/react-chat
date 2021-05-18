@@ -11,14 +11,14 @@ import {
 
 import './ChatInput.scss';
 import { Button, Input } from 'antd';
-import { Upload } from '..';
+import { Upload, UploadFiles } from '..';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { selectCurrentDialogID } from 'redux/selectors';
 import { messagesActions } from 'redux/actions';
 import TextArea from 'antd/lib/input/TextArea';
 
-const ChatInput = ({ onSentMessage }) => {
+const ChatInput = ({ onSentMessage, chatInputRef }) => {
   const [value, setValue] = React.useState('');
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
 
@@ -35,55 +35,64 @@ const ChatInput = ({ onSentMessage }) => {
   const hanldeEmojiSelect = ({ colons }) => {
     setValue(value + colons);
   };
-  const handleOutsideClick = (el) => (e) => {
+  const handleOutsideClick = (e) => {
+    const el = document.querySelector('.chat-input__smile');
     if (el && !el.contains(e.target)) {
       setEmojiPickerVisible(false);
     }
   };
   React.useEffect(() => {
-    const el = document.querySelector('.chat-input__smile');
-    document.addEventListener('click', handleOutsideClick(el));
+    document.addEventListener('click', handleOutsideClick);
     return () => {
-      document.removeEventListener('click', handleOutsideClick(el));
+      document.removeEventListener('click', handleOutsideClick);
     };
   }, [currentDialogID]);
 
   return (
-    <div className="chat-input">
-      <div className="chat-input__smile">
-        {emojiPickerVisible && (
-          <div className="chat-input__emoji-picker">
-            <Picker
-              set="apple"
-              onSelect={hanldeEmojiSelect}
-              showPreview={false}
-              showSkinTones={false}
-            />
-          </div>
-        )}
-        <Button
-          onClick={toggleEmojiPicker}
-          type="text"
-          icon={<SmileOutlined />}
+    <div ref={chatInputRef} className="chat-input">
+      <div className="chat-input__content">
+        <div className="chat-input__smile">
+          {emojiPickerVisible && (
+            <div className="chat-input__emoji-picker">
+              <Picker
+                set="apple"
+                onSelect={hanldeEmojiSelect}
+                showPreview={false}
+                showSkinTones={false}
+              />
+            </div>
+          )}
+          <Button
+            onClick={toggleEmojiPicker}
+            type="text"
+            icon={<SmileOutlined />}
+          />
+        </div>
+        <TextArea
+          onChange={(e) => setValue(e.target.value)}
+          onKeyUp={handleSendMsg}
+          value={value}
+          size="large"
+          placeholder="Write a message..."
+          autoSize={{ minRows: 1, maxRows: 4 }}
         />
+        <div className="chat-input__actions">
+          <Upload>
+            <Button type="text" icon={<CameraOutlined />} />
+          </Upload>
+          {value ? (
+            <Button
+              type="text"
+              icon={<SendOutlined />}
+              onClick={handleSendMsg}
+            />
+          ) : (
+            <Button type="text" icon={<AudioOutlined />} />
+          )}
+        </div>
       </div>
-      <TextArea
-        onChange={(e) => setValue(e.target.value)}
-        onKeyUp={handleSendMsg}
-        value={value}
-        size="large"
-        placeholder="Write a message..."
-        autoSize={{ minRows: 1, maxRows: 4 }}
-      />
-      <div className="chat-input__actions">
-        <Upload>
-          <Button type="text" icon={<CameraOutlined />} />
-        </Upload>
-        {value ? (
-          <Button type="text" icon={<SendOutlined />} onClick={handleSendMsg} />
-        ) : (
-          <Button type="text" icon={<AudioOutlined />} />
-        )}
+      <div className="chat-input-upload-img">
+        <UploadFiles />
       </div>
     </div>
   );

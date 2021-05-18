@@ -12,7 +12,9 @@ const Home = () => {
   const currentDialogID = useSelector(selectCurrentDialogID);
   const location = useLocation();
   const dispatch = useDispatch();
-
+  const chatInputRef = React.useRef(null);
+  const inputHeight = chatInputRef.current && chatInputRef.current.clientHeight;
+  console.log(inputHeight);
   React.useEffect(() => {
     const dialogId = location.pathname.split('/').pop();
     dispatch(dialogsActions.setCurrentDialogID(dialogId));
@@ -29,7 +31,9 @@ const Home = () => {
               <Button type="text" icon={<EllipsisOutlined />} />
             )}
           </div>
-          <div className="chat__dialog-messages">
+          <div
+            className="chat__dialog-messages"
+            style={{ height: `calc(100% - ${inputHeight ? inputHeight + 95 + 'px': '160px'})` }}>
             {currentDialogID ? (
               <Messages />
             ) : (
@@ -37,7 +41,7 @@ const Home = () => {
             )}
           </div>
           <div className="chat__dialog-input">
-            {currentDialogID && <ChatInput />}
+            {currentDialogID && <ChatInput chatInputRef={chatInputRef} />}
           </div>
         </div>
       </div>
