@@ -32,11 +32,9 @@ const ChatInput = ({ onSentMessage }) => {
       setValue('');
     }
   };
-
   const hanldeEmojiSelect = ({ colons }) => {
     setValue(value + colons);
   };
-
   const handleOutsideClick = (el) => (e) => {
     if (el && !el.contains(e.target)) {
       setEmojiPickerVisible(false);
@@ -48,10 +46,8 @@ const ChatInput = ({ onSentMessage }) => {
     return () => {
       document.removeEventListener('click', handleOutsideClick(el));
     };
-  }, []);
-  if (!currentDialogID) {
-    return <div />;
-  }
+  }, [currentDialogID]);
+
   return (
     <div className="chat-input">
       <div className="chat-input__smile">

@@ -54,6 +54,10 @@
 
   &__text {
    line-height: 20px;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   word-break: break-all;
    .emoji-mart-emoji{
      max-height: 16px;
    }

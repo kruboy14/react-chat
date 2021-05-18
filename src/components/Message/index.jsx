@@ -23,12 +23,11 @@ const Message = ({
   date,
   audio,
   isMe,
-  isRead,
+  read,
   attachments,
   isTyping,
   id,
 }) => {
-  console.log();
 
   const [valuePopup, setValuePopup] = React.useState(false);
 
@@ -179,7 +178,7 @@ const Message = ({
         </div>
         <span className="message__date">{date && <Time date={date} />}</span>
       </div>
-      {isMe && <IconRead isRead={isRead} />}
+      {isMe && <IconRead isRead={read} />}
     </div>
   );
 };

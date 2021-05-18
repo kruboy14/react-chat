@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Auth, Home } from './pages';
 import { selectUserAuth } from './redux/selectors';
@@ -8,14 +8,16 @@ const App = () => {
   const isAuth = useSelector(selectUserAuth);
   return (
     <div className="wrapper">
-      {isAuth ? <Redirect to="/im" /> : <Redirect to="/login" />}
-      <Route
-        exact
-        path={['/', '/login', '/signup', '/register', '/register/verify']}
-        component={Auth}
+        {isAuth ? <Redirect to="/" /> : <Redirect to="/login" />}
+      <Switch>
+        <Route
+          exact
+          path={[ '/login', '/signup', '/register', '/register/verify']}
+          component={Auth}
         />
 
-      <Route path={["/im", '/dialog/:id']} component={Home} />
+        <Route path={['/', '/dialog/:id']} component={Home} />
+      </Switch>
     </div>
   );
 };

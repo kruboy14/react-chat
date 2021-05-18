@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dialogsActions } from '../../redux/actions';
 import { selectCurrentDialogID } from '../../redux/selectors';
 import { Link } from 'react-router-dom';
+import reactStringReplace from 'react-string-replace';
+import { Emoji } from 'emoji-mart';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -25,8 +27,9 @@ const getMessageTime = (createdAt) => {
 };
 
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
-  const dispatch = useDispatch();
+
   const currentDialogID = useSelector(selectCurrentDialogID);
+ 
   return (
     <Link to={`/dialog/${_id}`}>
       <div
@@ -35,9 +38,9 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
           active: currentDialogID === _id,
           'dialog__item-notick-nocount': !unread && !isMe,
         })}
-        onClick={() => dispatch(dialogsActions.setCurrentDialogID(_id))}>
+       >
         <div className="dialog__item-avatar">
-          {/* <img src={user.avatar} alt={`${user.fullname} avatar`}/> */}
+         
           <Avatar user={user} />
         </div>
         <div className="dialog__item-content">
@@ -51,7 +54,9 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
           </div>
           <div className="dialog__item-content-bottom">
             <div className="dialog__item-content-text">
-              <p>{message.text}</p>
+              <p>{reactStringReplace(message.text, /:(.+?):/g, (match, i) => (
+                    <Emoji key={i} emoji={match} set="apple" size={16} />
+                  ))}</p>
             </div>
             <div className="dialog__item-content-tick">
               {isMe && <IconRead isRead={message.read} />}

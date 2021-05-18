@@ -29,11 +29,18 @@ const Messages = () => {
       socket.emit('room', currentDialogID);
       socket.on('SERVER:MESSAGE_CREATED', (msg) => {
         dispatch(messagesActions.addMessage(msg));
+        if (msg.user._id !== user._id) {
+          messagesActions.readSentMsg(msg.dialog._id);
+        }
+      });
+      socket.on('SERVER:MESSAGES_READED', (userId) => {
+        dispatch(messagesActions.myMsgRead(userId));
       });
     }
     return () => {
       socket.emit('room', currentDialogID);
       socket.off('SERVER:MESSAGE_CREATED');
+      socket.off('SERVER:MESSAGES_READED');
     };
   }, [currentDialogID, dispatch]);
   React.useEffect(() => {

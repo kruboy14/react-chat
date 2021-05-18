@@ -16,7 +16,6 @@ const Dialogs = () => {
 
   React.useEffect(() => {
     socket.on('SERVER:DIALOG_CREATED', (data) => {
-      console.log(data);
       dispatch(dialogsActions.fetchDialogs());
     });
     if (!items) {
