@@ -106,7 +106,7 @@ const Message = ({
       className={classNames('message', {
         'message-isme': isMe,
         'message-is-typing': isTyping,
-        'message-image-one': attachments && attachments.length === 1,
+        'message-image-one': attachments && !text && attachments.length === 1,
         'message-is-audio': audio,
       })}>
       <div className="message__avatar">

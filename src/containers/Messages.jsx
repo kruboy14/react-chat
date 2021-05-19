@@ -15,38 +15,37 @@ const Messages = () => {
   const [filter, setFilter] = React.useState([]);
   const scrollRef = React.useRef(null);
 
+  const user = useSelector(selectUserData);
   const currentDialogID = useSelector(selectCurrentDialogID);
   const allMessages = useSelector(selectAllMessages);
   const isLoading = useSelector(selectIsLoading);
-  const user = useSelector(selectUserData);
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-
     (async () => {
-     
-   
-    if (currentDialogID) {
-     await dispatch(messagesActions.fetchMessages(currentDialogID));
+      if (currentDialogID) {
+        await dispatch(messagesActions.fetchMessages(currentDialogID));
 
-      socket.emit('room', currentDialogID);
-      socket.on('SERVER:MESSAGE_CREATED', (msg) => {
-        dispatch(messagesActions.addMessage(msg));
-        if (msg.user._id !== user._id) {
-          messagesActions.readSentMsg(msg.dialog._id);
-        }
-      });
-      socket.on('SERVER:MESSAGES_READED', (userId) => {
-        dispatch(messagesActions.myMsgRead(userId));
-      });
-    }
-  })();
+        socket.emit('room', currentDialogID);
+        socket.on('SERVER:MESSAGE_CREATED', async (msg) => {
+          await dispatch(messagesActions.addMessage(msg));
+          console.log('msg', msg);
+          console.log('user', user);
+          if (msg.user._id !== user._id) {
+            messagesActions.readSentMsg(msg.dialog._id);
+          }
+        });
+        socket.on('SERVER:MESSAGES_READED', (userId) => {
+          dispatch(messagesActions.myMsgRead(userId));
+        });
+      }
+    })();
     return () => {
       socket.emit('room', currentDialogID);
       socket.off('SERVER:MESSAGE_CREATED');
       socket.off('SERVER:MESSAGES_READED');
     };
-  }, [currentDialogID, dispatch]);
+  }, [currentDialogID, dispatch, user]);
   React.useEffect(() => {
     scrollRef.current.scrollTo(0, scrollRef.current.scrollHeight);
   }, [allMessages]);

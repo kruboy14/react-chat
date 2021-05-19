@@ -12,44 +12,23 @@ import {
 import './ChatInput.scss';
 import { Button, Input } from 'antd';
 import { Upload, UploadFiles } from '..';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { selectCurrentDialogID } from 'redux/selectors';
-import { messagesActions } from 'redux/actions';
+
 import TextArea from 'antd/lib/input/TextArea';
 
-const ChatInput = ({ onSentMessage, chatInputRef }) => {
-  const [value, setValue] = React.useState('');
-  const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+const ChatInput = ({
+  onSentMessage,
 
-  const toggleEmojiPicker = () => setEmojiPickerVisible(!emojiPickerVisible);
-  const dispatch = useDispatch();
-  const currentDialogID = useSelector(selectCurrentDialogID);
-
-  const handleSendMsg = (e) => {
-    if (e.key === 'Enter' && value.length > 1) {
-      dispatch(messagesActions.fetchSendMessage(value, currentDialogID));
-      setValue('');
-    }
-  };
-  const hanldeEmojiSelect = ({ colons }) => {
-    setValue(value + colons);
-  };
-  const handleOutsideClick = (e) => {
-    const el = document.querySelector('.chat-input__smile');
-    if (el && !el.contains(e.target)) {
-      setEmojiPickerVisible(false);
-    }
-  };
-  React.useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [currentDialogID]);
-
+  emojiPickerVisible,
+  hanldeEmojiSelect,
+  toggleEmojiPicker,
+  setValue,
+  value,
+  handleSendMsg,
+  handleSendMsgBtn,
+  attachments,
+}) => {
   return (
-    <div ref={chatInputRef} className="chat-input">
+    <div className="chat-input">
       <div className="chat-input__content">
         <div className="chat-input__smile">
           {emojiPickerVisible && (
@@ -84,7 +63,7 @@ const ChatInput = ({ onSentMessage, chatInputRef }) => {
             <Button
               type="text"
               icon={<SendOutlined />}
-              onClick={handleSendMsg}
+              onClick={handleSendMsgBtn}
             />
           ) : (
             <Button type="text" icon={<AudioOutlined />} />

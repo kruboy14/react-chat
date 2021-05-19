@@ -1,6 +1,7 @@
 import React from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { ChatInput, Status, Sidebar } from '../../components';
+import { Status, Sidebar } from '../../components';
+import { ChatInput } from '../../containers';
 import { Button, Empty } from 'antd';
 import './Home.scss';
 import { Messages } from '../../containers';
@@ -10,11 +11,14 @@ import { useLocation } from 'react-router';
 import { dialogsActions } from '../../redux/actions';
 const Home = () => {
   const currentDialogID = useSelector(selectCurrentDialogID);
+  const [inputHeight, setinputHeight] = React.useState(null);
   const location = useLocation();
   const dispatch = useDispatch();
-  const chatInputRef = React.useRef(null);
-  const inputHeight = chatInputRef.current && chatInputRef.current.clientHeight;
-  console.log(inputHeight);
+  React.useEffect(() => {
+    const chatInputRef = document.querySelector('.chat-input');
+    chatInputRef && setinputHeight(chatInputRef.clientHeight);
+    console.log('inputHeight', inputHeight);
+  }, [inputHeight]);
   React.useEffect(() => {
     const dialogId = location.pathname.split('/').pop();
     dispatch(dialogsActions.setCurrentDialogID(dialogId));
@@ -33,7 +37,11 @@ const Home = () => {
           </div>
           <div
             className="chat__dialog-messages"
-            style={{ height: `calc(100% - ${inputHeight ? inputHeight + 95 + 'px': '160px'})` }}>
+            style={{
+              height: `calc(100% - ${
+                inputHeight ? inputHeight + 95 + 'px' : '175px'
+              })`,
+            }}>
             {currentDialogID ? (
               <Messages />
             ) : (
@@ -41,7 +49,7 @@ const Home = () => {
             )}
           </div>
           <div className="chat__dialog-input">
-            {currentDialogID && <ChatInput chatInputRef={chatInputRef} />}
+            {currentDialogID && <ChatInput />}
           </div>
         </div>
       </div>

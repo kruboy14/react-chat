@@ -17,8 +17,8 @@ const Actions = {
   readSentMsg: async (dialogId) => {
    await messagesApi.getByDialogID(dialogId);
   },
-  fetchSendMessage: (text, dialogID) => (dispatch) => {
-    return messagesApi.send(text, dialogID);
+  fetchSendMessage: (text, dialogID, attachments) => (dispatch) => {
+    return messagesApi.send(text, dialogID, attachments);
   },
   removeMessageByID: (id) => async (dispatch) => {
     const { data } = await messagesApi.removeById(id);

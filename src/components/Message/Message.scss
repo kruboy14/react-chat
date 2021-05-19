@@ -33,11 +33,11 @@
 
   &__item {
     display: flex;
-    flex-direction: column;
+    align-items: center;
   }
 
   &__bubble {
-    
+    order: 2;
     display: inline-block;
     padding: 15px;
     position: relative;
@@ -64,12 +64,15 @@
   }
 
   &__attachments {
+    margin-left: 5px;
     display: flex;
     &__item {
       margin-right: 8px;
       cursor: pointer;
     }
     img {
+      object-fit: cover;
+      object-position: top center;
       width: 45px;
       height: 45px;
       border-radius: 8px;
@@ -103,7 +106,7 @@
       border-radius: 12px 12px 0 12px;
       color: $black;
       margin-right: 0;
-      margin-left: 8px;
+      margin-left: 5px;
     }
 
     #{$self}__avatar {

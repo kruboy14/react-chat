@@ -39,6 +39,9 @@
       }
     }
   }
+  &-upload-img {
+    margin: 20px;
+  }
   &__actions {
     display: flex;
     button.ant-btn-icon-only {
@@ -65,4 +68,7 @@
       }
     }
   }
+}
+.chat button.ant-btn-icon-only{
+  background-color: inherit !important;
 }
