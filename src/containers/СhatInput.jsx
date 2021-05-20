@@ -5,10 +5,12 @@ import { messagesActions } from 'redux/actions';
 
 import { ChatInput as BaseChatInput } from '../components';
 import { attachmentsActions } from '../redux/actions';
-const СhatInput = () => {
+const СhatInput = ({ setchecker }) => {
   const [value, setValue] = React.useState('');
-  const attachments = useSelector(selectAttachments).map(item => item._id);
- 
+  const [isRecording, setIsRecording] = React.useState(false);
+  const [mediaRecorder, setMediaRecorder] = React.useState(null);
+  const attachments = useSelector(selectAttachments).map((item) => item._id);
+
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
 
   const toggleEmojiPicker = () => setEmojiPickerVisible(!emojiPickerVisible);
@@ -17,15 +19,65 @@ const СhatInput = () => {
 
   const handleSendMsg = async (e) => {
     if (e.key === 'Enter' && value.length > 1) {
-      await dispatch(messagesActions.fetchSendMessage(value, currentDialogID, attachments));
-      dispatch(attachmentsActions.clear())
+      await dispatch(
+        messagesActions.fetchSendMessage(value, currentDialogID, attachments),
+      );
+      dispatch(attachmentsActions.clear());
       setValue('');
     }
   };
   const handleSendMsgBtn = async (e) => {
-    await dispatch(messagesActions.fetchSendMessage(value, currentDialogID, attachments));
-    dispatch(attachmentsActions.clear())
+    await dispatch(
+      messagesActions.fetchSendMessage(value, currentDialogID, attachments),
+    );
+    dispatch(attachmentsActions.clear());
     setValue('');
+  };
+
+  window.navigator.getUserMedia =
+    window.navigator.getUserMedia ||
+    window.navigator.mozGetUserMedia ||
+    window.navigator.msGetUserMedia ||
+    window.navigator.webkitGetUserMedia;
+
+  const onRecord = () => {
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({ audio: true }, onRecording, onError);
+    }
+  };
+  const onRecording = (stream) => {
+    const recorder = new MediaRecorder(stream);
+    setMediaRecorder(recorder);
+
+    recorder.start();
+
+    recorder.onstart = () => {
+      setIsRecording(true);
+    };
+
+    recorder.onstop = () => {
+      setIsRecording(false);
+    };
+
+    recorder.ondataavailable = (e) => {
+      const audioURL = window.URL.createObjectURL(e.data);
+      new Audio(audioURL).play();
+      // const file = new File([e.data], 'audio.webm');
+      // setLoading(true);
+      // filesApi.upload(file).then(({ data }) => {
+      //   sendAudio(data.file._id).then(() => {
+      //     setLoading(false);
+      //   });
+      // });
+    };
+  };
+
+  const onError = (err) => {
+    console.log('The following error occured: ' + err);
+  };
+
+  const handleStopRecording = () => {
+    mediaRecorder.stop();
   };
 
   const hanldeEmojiSelect = ({ colons }) => {
@@ -46,9 +98,12 @@ const СhatInput = () => {
 
   return (
     <BaseChatInput
+      setchecker={setchecker}
+      isRecording={isRecording}
+      handleStopRecording={handleStopRecording}
+      onRecord={onRecord}
       value={value}
       setValue={setValue}
-      attachments={attachments}
       emojiPickerVisible={emojiPickerVisible}
       toggleEmojiPicker={toggleEmojiPicker}
       handleSendMsg={handleSendMsg}

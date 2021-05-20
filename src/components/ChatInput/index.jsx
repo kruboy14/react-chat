@@ -11,13 +11,16 @@ import {
 
 import './ChatInput.scss';
 import { Button, Input } from 'antd';
-import { Upload, UploadFiles } from '..';
+import { Recording, Upload, UploadFiles } from '..';
 
 import TextArea from 'antd/lib/input/TextArea';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { selectAttachments } from '../../redux/selectors';
 
 const ChatInput = ({
   onSentMessage,
-
+  setchecker,
   emojiPickerVisible,
   hanldeEmojiSelect,
   toggleEmojiPicker,
@@ -25,8 +28,12 @@ const ChatInput = ({
   value,
   handleSendMsg,
   handleSendMsgBtn,
-  attachments,
+  isRecording,
+  handleStopRecording,
+  onRecord,
 }) => {
+  const attachments = useSelector(selectAttachments);
+  const dispatch = useDispatch();
   return (
     <div className="chat-input">
       <div className="chat-input__content">
@@ -47,31 +54,39 @@ const ChatInput = ({
             icon={<SmileOutlined />}
           />
         </div>
-        <TextArea
-          onChange={(e) => setValue(e.target.value)}
-          onKeyUp={handleSendMsg}
-          value={value}
-          size="large"
-          placeholder="Write a message..."
-          autoSize={{ minRows: 1, maxRows: 4 }}
-        />
+        {isRecording ? (
+          <Recording handleStopRecording={handleStopRecording} />
+        ) : (
+          <TextArea
+            onChange={(e) => setValue(e.target.value)}
+            onKeyUp={handleSendMsg}
+            value={value}
+            size="large"
+            placeholder="Write a message..."
+            autoSize={{ minRows: 1, maxRows: 4 }}
+          />
+        )}
         <div className="chat-input__actions">
           <Upload>
             <Button type="text" icon={<CameraOutlined />} />
           </Upload>
-          {value ? (
+          {value || isRecording || attachments.length ? (
             <Button
               type="text"
               icon={<SendOutlined />}
               onClick={handleSendMsgBtn}
             />
           ) : (
-            <Button type="text" icon={<AudioOutlined />} />
+            <Button
+              onClick={onRecord}
+              type="text"
+              icon={<AudioOutlined />}
+            />
           )}
         </div>
       </div>
       <div className="chat-input-upload-img">
-        <UploadFiles />
+        {attachments.length ? <UploadFiles setchecker={setchecker} /> : null}
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ const getMessageTime = (createdAt) => {
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
 
   const currentDialogID = useSelector(selectCurrentDialogID);
- 
+  console.log(message, "check");
   return (
     <Link to={`/dialog/${_id}`}>
       <div
@@ -73,4 +73,6 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
   );
 };
 
-export default DialogItem;
+export default React.memo(DialogItem);
+
+

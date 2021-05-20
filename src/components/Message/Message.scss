@@ -19,7 +19,7 @@
       font-size: 14px;
       line-height: 32px;
     }
-    img{
+    img {
       border-radius: 50%;
       width: 33px;
       height: 33px;
@@ -53,14 +53,14 @@
   }
 
   &__text {
-   line-height: 20px;
-   display: flex;
-   flex-wrap: wrap;
-   align-items: center;
-   word-break: break-all;
-   .emoji-mart-emoji{
-     max-height: 16px;
-   }
+    line-height: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    word-break: break-all;
+    .emoji-mart-emoji {
+      max-height: 16px;
+    }
   }
 
   &__attachments {
@@ -68,6 +68,7 @@
     display: flex;
     &__item {
       margin-right: 8px;
+      margin-bottom: 2px;
       cursor: pointer;
     }
     img {
@@ -76,6 +77,12 @@
       width: 45px;
       height: 45px;
       border-radius: 8px;
+    }
+    &-no-text {
+      img {
+        width: 65px;
+        height: 65px;
+      }
     }
   }
 
@@ -129,7 +136,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        transition: width .3s linear;
+        transition: width 0.3s linear;
         height: 100%;
       }
       &-info {
@@ -163,7 +170,6 @@
         opacity: 0.9;
         font-size: 12px;
         min-width: 30px;
-        
       }
     }
   }

@@ -12,13 +12,15 @@ import { dialogsActions } from '../../redux/actions';
 const Home = () => {
   const currentDialogID = useSelector(selectCurrentDialogID);
   const [inputHeight, setinputHeight] = React.useState(null);
+  const [checker, setchecker] = React.useState(0);
   const location = useLocation();
   const dispatch = useDispatch();
+  const chatInputRef = React.createRef();
+  // TODO: dynamic height of input component
+
   React.useEffect(() => {
-    const chatInputRef = document.querySelector('.chat-input');
-    chatInputRef && setinputHeight(chatInputRef.clientHeight);
-    console.log('inputHeight', inputHeight);
-  }, [inputHeight]);
+    setinputHeight(chatInputRef.current.clientHeight);
+  }, [chatInputRef, checker]);
   React.useEffect(() => {
     const dialogId = location.pathname.split('/').pop();
     dispatch(dialogsActions.setCurrentDialogID(dialogId));
@@ -39,7 +41,7 @@ const Home = () => {
             className="chat__dialog-messages"
             style={{
               height: `calc(100% - ${
-                inputHeight ? inputHeight + 95 + 'px' : '175px'
+                inputHeight && checker !== 0 ? '275px' : '175px'
               })`,
             }}>
             {currentDialogID ? (
@@ -48,8 +50,8 @@ const Home = () => {
               <Empty description="Open dialog" />
             )}
           </div>
-          <div className="chat__dialog-input">
-            {currentDialogID && <ChatInput />}
+          <div ref={chatInputRef} className="chat__dialog-input">
+            {currentDialogID && <ChatInput setchecker={setchecker} />}
           </div>
         </div>
       </div>

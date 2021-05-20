@@ -31,7 +31,7 @@ const Dialogs = ({ items, user, onChange, inputValue }) => {
               user={item.author._id === user._id ? item.partner : item.author}
               message={item.lastMessage}
               unread={0}
-              isMe={item.author._id === user._id}
+              isMe={item.lastMessage.user === user._id}
             />
           ))
         ) : (

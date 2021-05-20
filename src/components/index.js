@@ -13,3 +13,8 @@ export { default as Upload } from './Upload';
 export { default as FormItem } from './FormItem';
 export { default as Sidebar } from './Sidebar';
 export { default as UploadFiles } from './UploadFiles';
+export { default as Recording } from './Recording';
+export { default as TypingMessage } from './TypingMessage';
+export { default as MessageAudio } from './MessageAudio';
+export { default as MessageItem } from './MessageItem';
+export { default as Popover } from './Popover';

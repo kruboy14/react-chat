@@ -1,6 +1,8 @@
 import React from 'react';
 import { Upload, Modal } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAttachments } from '../../redux/selectors';
+import { attachmentsActions } from '../../redux/actions';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -11,11 +13,36 @@ function getBase64(file) {
   });
 }
 
-const UploadFiles = () => {
+const UploadFiles = ({setchecker}) => {
+  const attachments = useSelector(selectAttachments);
+  const dispatch = useDispatch();
   const [previewVisible, setPreviewVisible] = React.useState(false);
   const [previewImage, setPreviewImage] = React.useState('');
   const [previewTitle, setPreviewTitle] = React.useState('');
+  console.log('test!');
+  const normalattch = React.useMemo(
+    () =>
+      attachments.map((file) => {
+        return {
+          uid: file._id,
+          name: file.filename + file.ext + '',
+          status: 'done',
+          url: file.url,
+        };
+      }),
+    [attachments],
+  );
   const [fileList, setFileList] = React.useState([]);
+  React.useEffect(() => {
+    setFileList(normalattch);
+  }, [normalattch]);
+  React.useEffect(() => {
+    setchecker(100);
+    return () => {
+    setchecker(0);
+      
+    }
+  }, [setchecker]);
   const handleCancel = () => setPreviewVisible(false);
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -29,24 +56,25 @@ const UploadFiles = () => {
   };
   const handleChange = ({ fileList }) => {
     setFileList({ fileList });
-    console.log("fileList", fileList);
   };
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+
   return (
     <>
       <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
-        // fileList={fileList}
+        fileList={fileList}
         onPreview={handlePreview}
-        onChange={handleChange}>
-        {fileList.length >= 8 ? null : uploadButton}
-      </Upload>
+        onChange={handleChange}
+        onRemove={(file) => {
+          setFileList((fileList) =>
+            fileList.filter((img) => img.uid !== file.uid),
+          );
+          dispatch(attachmentsActions.removeAttachment(file));
+
+          return false;
+        }}></Upload>
+
       <Modal
         visible={previewVisible}
         title={previewTitle}
@@ -58,4 +86,4 @@ const UploadFiles = () => {
   );
 };
 
-export default UploadFiles;
+export default React.memo(UploadFiles);

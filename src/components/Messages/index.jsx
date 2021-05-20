@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Empty, Spin } from 'antd';
+import { Empty, Modal, Spin } from 'antd';
 import { Message } from '..';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const Messages = ({ scrollRef, isLoading, items, user }) => {
+const Messages = ({
+  scrollRef,
+  isLoading,
+  items,
+  user,
+  previewImage,
+  setPreviewImage,
+}) => {
   return (
     <div ref={scrollRef} className="chat__dialog-messages-box">
       {isLoading ? (
@@ -15,11 +22,13 @@ const Messages = ({ scrollRef, isLoading, items, user }) => {
         />
       ) : items ? (
         items.length > 0 ? (
-          items.map((item) => ( 
+          items.map((item) => (
             <Message
+              key={item._id}
               {...item}
               isMe={user._id === item.user._id}
               id={item._id}
+              setPreviewImage={setPreviewImage}
             />
           ))
         ) : (
@@ -28,6 +37,13 @@ const Messages = ({ scrollRef, isLoading, items, user }) => {
       ) : (
         <Empty description="Open dialog" />
       )}
+      <Modal
+        className="messages-modal-photo"
+        visible={!!previewImage}
+        onCancel={() => setPreviewImage(null)}
+        footer={null}>
+        <img src={previewImage} style={{ width: '100%' }} alt="Preview" />
+      </Modal>
     </div>
   );
 };

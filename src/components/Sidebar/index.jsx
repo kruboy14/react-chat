@@ -36,13 +36,15 @@ const Sidebar = () => {
   };
 
   const handleSearch = async (value) => {
-    try {
-      setIsLoading(true);
-      const { data } = await userApi.searchUser(value);
-      setUsers(data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
+    if (value) {
+      try {
+        setIsLoading(true);
+        const { data } = await userApi.searchUser(value);
+        setUsers(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
     }
   };
 

@@ -26,6 +26,9 @@
     border-right: 1px solid #f7f7f7;
     box-shadow: 2px 0px 5px #f7f7f7;
     flex: 0 1 330px;
+    @media (max-width: 992px) {
+      flex-basis: 270px;
+    }
     &-header {
       padding: 20px;
 
@@ -113,6 +116,7 @@
       padding: 0 20px;
       overflow: auto;
       height: 100%;
+      
     }
   }
 }
@@ -127,5 +131,13 @@
     font-size: 14px;
     color: $blue;
     font-weight: 500;
+  }
+}
+
+.messages-modal-photo{
+  .ant-modal-close-x{
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
   }
 }

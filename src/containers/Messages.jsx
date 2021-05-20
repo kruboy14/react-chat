@@ -13,6 +13,7 @@ import {
 
 const Messages = () => {
   const [filter, setFilter] = React.useState([]);
+  const [previewImage, setPreviewImage] = React.useState(null);
   const scrollRef = React.useRef(null);
 
   const user = useSelector(selectUserData);
@@ -31,7 +32,7 @@ const Messages = () => {
           await dispatch(messagesActions.addMessage(msg));
           console.log('msg', msg);
           console.log('user', user);
-          if (msg.user._id !== user._id) {
+          if (user && msg.user._id !== user._id) {
             messagesActions.readSentMsg(msg.dialog._id);
           }
         });
@@ -56,6 +57,8 @@ const Messages = () => {
       isLoading={isLoading}
       scrollRef={scrollRef}
       user={user}
+      previewImage={previewImage}
+      setPreviewImage={setPreviewImage}
     />
   );
 };
