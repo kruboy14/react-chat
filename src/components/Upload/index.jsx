@@ -30,9 +30,13 @@ const MyUpload = ({ children }) => {
     },
 
     async customRequest({ data, file, filename }) {
-      const res = await filesApi.upload(file);
-  
-      dispatch(attachmentsActions.addAttachment(res.data.file));
+      try {
+        const res = await filesApi.upload(file);
+        dispatch(attachmentsActions.addAttachment(res.data.file));
+      } catch (error) {
+        console.dir(error);
+      }
+
       return {
         abort() {
           console.log('upload progress is aborted.');

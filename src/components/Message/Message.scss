@@ -106,6 +106,9 @@
   &-isme {
     display: flex;
     flex-direction: row-reverse;
+    .message__audio-duration{
+      color: #3674ff !important;
+    }
     #{$self}__bubble {
       background-color: #fff;
       border: 1px solid #ececec;

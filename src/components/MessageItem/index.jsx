@@ -28,6 +28,30 @@ const MessageItem = ({
     dispatch(messagesActions.removeMessageByID(id));
     setValuePopup(false);
   };
+  const renderAttachment = (item) => {
+    
+    if (item.ext === 'ogg' || item.ext === 'webm') {
+      return (
+        <div className="message__item">
+          <div className="message__bubble">
+            <MessageAudio key={item._id} audioSrc={item.url} />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="message__attachments">
+          <div key={item._id} className="message__attachments__item">
+            <img
+              onClick={() => setPreviewImage(item.url)}
+              src={item.url}
+              alt={item.filename}
+            />
+          </div>
+        </div>
+      );
+    }
+  };
   return (
     <MessagePopover
       isPopover={isMe}
@@ -35,7 +59,7 @@ const MessageItem = ({
       handleVisibleChange={handleVisibleChange}
       deleteMessage={deleteMessage}>
       <div className="message__item">
-        {(audio || text || isTyping) && (
+        {(text || isTyping) && (
           <div className={classNames({ 'message__bubble me': isMe })}>
             {text ?? (
               <p className="message__text">
@@ -46,26 +70,10 @@ const MessageItem = ({
             )}
 
             {isTyping && <TypingMessage />}
+          </div>
+        )}
 
-            {audio && <MessageAudio audioSrc={audio} />}
-          </div>
-        )}
-        {attachments && (
-          <div
-            className={classNames('message__attachments', {
-              'message__attachments-no-text': !text,
-            })}>
-            {attachments.map((item) => (
-              <div key={item.filename} className="message__attachments__item">
-                <img
-                  onClick={() => setPreviewImage(item.url)}
-                  src={item.url}
-                  alt={item.filename}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        {attachments && attachments.map((item) => renderAttachment(item))}
       </div>
     </MessagePopover>
   );

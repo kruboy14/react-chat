@@ -23,28 +23,32 @@ const Messages = () => {
 
   const dispatch = useDispatch();
   React.useEffect(() => {
+    const handleMsgCreated = async (msg) => {
+      if (user) {
+        await dispatch(messagesActions.addMessage(msg));
+        if (msg.user._id !== user._id) {
+          messagesActions.readSentMsg(msg.dialog._id);
+        }
+      }
+    };
+    const handleMsgRead = (userId) => {
+      if (user) {
+        dispatch(messagesActions.myMsgRead(userId));
+      }
+    };
     (async () => {
       if (currentDialogID) {
         await dispatch(messagesActions.fetchMessages(currentDialogID));
 
         socket.emit('room', currentDialogID);
-        socket.on('SERVER:MESSAGE_CREATED', async (msg) => {
-          await dispatch(messagesActions.addMessage(msg));
-          console.log('msg', msg);
-          console.log('user', user);
-          if (user && msg.user._id !== user._id) {
-            messagesActions.readSentMsg(msg.dialog._id);
-          }
-        });
-        socket.on('SERVER:MESSAGES_READED', (userId) => {
-          dispatch(messagesActions.myMsgRead(userId));
-        });
+        socket.on('SERVER:MESSAGE_CREATED', handleMsgCreated);
+        socket.on('SERVER:MESSAGES_READED', handleMsgRead);
       }
     })();
     return () => {
       socket.emit('room', currentDialogID);
-      socket.off('SERVER:MESSAGE_CREATED');
-      socket.off('SERVER:MESSAGES_READED');
+      socket.off('SERVER:MESSAGE_CREATED', handleMsgCreated);
+      socket.off('SERVER:MESSAGES_READED', handleMsgRead);
     };
   }, [currentDialogID, dispatch, user]);
   React.useEffect(() => {

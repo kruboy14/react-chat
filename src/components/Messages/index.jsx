@@ -29,6 +29,7 @@ const Messages = ({
               isMe={user._id === item.user._id}
               id={item._id}
               setPreviewImage={setPreviewImage}
+              audio={item.attachments[0]?.ext === 'webm' || item.attachments[0]?.ext === 'ogg'}
             />
           ))
         ) : (

@@ -5,6 +5,10 @@ import { messagesActions } from 'redux/actions';
 
 import { ChatInput as BaseChatInput } from '../components';
 import { attachmentsActions } from '../redux/actions';
+import { filesApi } from '../utils/api';
+
+
+
 const СhatInput = ({ setchecker }) => {
   const [value, setValue] = React.useState('');
   const [isRecording, setIsRecording] = React.useState(false);
@@ -12,6 +16,7 @@ const СhatInput = ({ setchecker }) => {
   const attachments = useSelector(selectAttachments).map((item) => item._id);
 
   const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+  const [LoadingAudio, setLoadingAudio] = React.useState(false);
 
   const toggleEmojiPicker = () => setEmojiPickerVisible(!emojiPickerVisible);
   const dispatch = useDispatch();
@@ -45,30 +50,29 @@ const СhatInput = ({ setchecker }) => {
       navigator.getUserMedia({ audio: true }, onRecording, onError);
     }
   };
+  
   const onRecording = (stream) => {
-    const recorder = new MediaRecorder(stream);
+    const recorder = new MediaRecorder(stream, {audioBitsPerSecond : 128000});
     setMediaRecorder(recorder);
 
     recorder.start();
 
     recorder.onstart = () => {
       setIsRecording(true);
+  
     };
 
     recorder.onstop = () => {
       setIsRecording(false);
+ 
     };
 
-    recorder.ondataavailable = (e) => {
-      const audioURL = window.URL.createObjectURL(e.data);
-      new Audio(audioURL).play();
-      // const file = new File([e.data], 'audio.webm');
-      // setLoading(true);
-      // filesApi.upload(file).then(({ data }) => {
-      //   sendAudio(data.file._id).then(() => {
-      //     setLoading(false);
-      //   });
-      // });
+    recorder.ondataavailable = async (e) => {
+      const file = new File([e.data], "audio", {type: 'audio/ogg'});
+      setLoadingAudio(true);
+      const { data } = await filesApi.upload(file);
+      dispatch(attachmentsActions.addAttachment(data.file));
+      setLoadingAudio(false);
     };
   };
 
