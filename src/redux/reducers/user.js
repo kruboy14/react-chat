@@ -3,15 +3,15 @@ import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 const initialState = {
   data: null,
-  isAuth: window.localStorage.token ? true : false,
+  isAuth: window.localStorage.mytoken ? true : false,
   // isAuth: false,
-  token: window.localStorage.token,
+  token: window.localStorage.mytoken,
 };
 const messagesReducer = createReducer(initialState, {
   [USER_SET_DATA]: (state, action) => {
     state.data = action.payload;
     state.isAuth = true;
-    state.token = window.localStorage.token;
+    state.token = window.localStorage.mytoken;
   },
   [USER_SET_IS_AUTH]: (state, action) => {
     state.isAuth = action.payload;
