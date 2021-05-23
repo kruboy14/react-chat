@@ -19,7 +19,6 @@ const UploadFiles = ({setchecker}) => {
   const [previewVisible, setPreviewVisible] = React.useState(false);
   const [previewImage, setPreviewImage] = React.useState('');
   const [previewTitle, setPreviewTitle] = React.useState('');
-  console.log('test!');
   const normalattch = React.useMemo(
     () =>
       attachments.map((file) => {

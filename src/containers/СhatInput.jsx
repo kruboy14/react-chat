@@ -32,6 +32,9 @@ const СhatInput = ({ setchecker }) => {
     }
   };
   const handleSendMsgBtn = async (e) => {
+    if(isRecording) {
+     return mediaRecorder.stop();
+    }
     await dispatch(
       messagesActions.fetchSendMessage(value, currentDialogID, attachments),
     );
@@ -71,7 +74,7 @@ const СhatInput = ({ setchecker }) => {
       const file = new File([e.data], "audio", {type: 'audio/ogg'});
       setLoadingAudio(true);
       const { data } = await filesApi.upload(file);
-      dispatch(attachmentsActions.addAttachment(data.file));
+      dispatch(messagesActions.fetchSendMessage(value, currentDialogID, data.file));
       setLoadingAudio(false);
     };
   };
@@ -81,7 +84,7 @@ const СhatInput = ({ setchecker }) => {
   };
 
   const handleStopRecording = () => {
-    mediaRecorder.stop();
+    setIsRecording(false);
   };
 
   const hanldeEmojiSelect = ({ colons }) => {

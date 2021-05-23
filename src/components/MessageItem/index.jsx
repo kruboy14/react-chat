@@ -54,6 +54,7 @@ const MessageItem = ({
   };
   return (
     <MessagePopover
+      key={id}
       isPopover={isMe}
       valuePopup={valuePopup}
       handleVisibleChange={handleVisibleChange}

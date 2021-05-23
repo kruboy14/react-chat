@@ -9,7 +9,6 @@ const MessageAudio = ({ audioSrc }) => {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [progressWidth, setProgressWidth] = React.useState(0);
   const audioElem = React.useRef(null);
-  console.log('currentTime', currentTime);
   const handleLoadedMeta = () => {
     if (audioElem.current?.duration === Infinity) {
       audioElem.current.currentTime = 1e5;
@@ -25,10 +24,6 @@ const MessageAudio = ({ audioSrc }) => {
     if (!audioElem.current.paused) {
       setCurrentTime(audioElem.current.currentTime);
       const duration = audioElem.current.duration || 0;
-      console.log(
-        ((audioElem.current.currentTime + 0.4) / duration) * 100,
-        'duration',
-      );
       setProgressWidth(
         ((audioElem.current.currentTime + 0.33) / duration) * 100,
       );

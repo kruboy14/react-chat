@@ -17,7 +17,7 @@ const Message = ({
   attachments,
   isTyping,
   id,
-  setPreviewImage
+  setPreviewImage,
 }) => {
   return (
     <div
@@ -32,6 +32,7 @@ const Message = ({
       </div>
       <div className="message__content">
         <MessageItem
+          key={id}
           audio={audio}
           text={text}
           isTyping={isTyping}
@@ -60,7 +61,7 @@ Message.propTypes = {
   isTyping: PropTypes.bool,
   isMe: PropTypes.bool,
   isRead: PropTypes.bool,
-  audio: PropTypes.string,
+  audio: PropTypes.bool,
 };
 
 export default Message;
