@@ -12,6 +12,7 @@ const dialogsReducer = createReducer(initialState, {
   [DIALOGS_SET_СURRENT_DIALOG_ID]: (state, action) => {
     state.currentDialogID = action.payload;
   },
+  
 });
 
 export default dialogsReducer;

@@ -61,7 +61,7 @@ const MessageItem = ({
       deleteMessage={deleteMessage}>
       <div className="message__item">
         {(text || isTyping) && (
-          <div className={classNames({ 'message__bubble me': isMe })}>
+          <div className={classNames("message__bubble",{ 'me': isMe })}>
             {text ?? (
               <p className="message__text">
                 {reactStringReplace(text, /:(.+?):/g, (match, i) => (

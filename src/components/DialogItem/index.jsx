@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import format from 'date-fns/format';
 import isToday from 'date-fns/isToday';
 import isThisWeek from 'date-fns/isThisWeek';
+import socket from 'core/socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogsActions } from '../../redux/actions';
 import { selectCurrentDialogID } from '../../redux/selectors';
@@ -27,8 +28,24 @@ const getMessageTime = (createdAt) => {
 };
 
 const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
-
+  const dispatch = useDispatch()
   const currentDialogID = useSelector(selectCurrentDialogID);
+  const handleMsgCreated= (msg) => {
+    dispatch(dialogsActions.fetchDialogs())
+    console.log( user.id);
+    console.log(_id);
+
+  } 
+  React.useEffect(() => {
+    (async () => {
+      socket.emit('room', _id);
+      socket.on(`SERVER:MESSAGE_CREATED/${_id}`, handleMsgCreated);
+    })();
+    return () => {
+      socket.emit('room', _id);
+      socket.off(`SERVER:MESSAGE_CREATED/${_id}`, handleMsgCreated);
+    };
+  }, [_id]);
   return (
     <Link to={`/dialog/${_id}`}>
       <div
@@ -36,10 +53,8 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
           'dialog__item-online': user.isOnline,
           active: currentDialogID === _id,
           'dialog__item-notick-nocount': !unread && !isMe,
-        })}
-       >
+        })}>
         <div className="dialog__item-avatar">
-         
           <Avatar user={user} />
         </div>
         <div className="dialog__item-content">
@@ -53,9 +68,11 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
           </div>
           <div className="dialog__item-content-bottom">
             <div className="dialog__item-content-text">
-              <p>{reactStringReplace(message.text, /:(.+?):/g, (match, i) => (
-                    <Emoji key={i} emoji={match} set="apple" size={16} />
-                  ))}</p>
+              <p>
+                {reactStringReplace(message.text, /:(.+?):/g, (match, i) => (
+                  <Emoji key={i} emoji={match} set="apple" size={16} />
+                ))}
+              </p>
             </div>
             <div className="dialog__item-content-tick">
               {isMe && <IconRead isRead={message.read} />}
@@ -73,5 +90,3 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
 };
 
 export default React.memo(DialogItem);
-
-

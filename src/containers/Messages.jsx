@@ -40,14 +40,14 @@ const Messages = () => {
       if (currentDialogID) {
         await dispatch(messagesActions.fetchMessages(currentDialogID));
 
-        socket.emit('room', currentDialogID);
-        socket.on('SERVER:MESSAGE_CREATED', handleMsgCreated);
+        // socket.emit('room', currentDialogID);
+        socket.on(`SERVER:MESSAGE_CREATED/${currentDialogID}`, handleMsgCreated);
         socket.on('SERVER:MESSAGES_READED', handleMsgRead);
       }
     })();
     return () => {
-      socket.emit('room', currentDialogID);
-      socket.off('SERVER:MESSAGE_CREATED', handleMsgCreated);
+      // socket.emit('room', currentDialogID);
+      socket.off(`SERVER:MESSAGE_CREATED/${currentDialogID}`, handleMsgCreated);
       socket.off('SERVER:MESSAGES_READED', handleMsgRead);
     };
   }, [currentDialogID, dispatch, user]);

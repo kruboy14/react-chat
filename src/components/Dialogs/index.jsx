@@ -21,7 +21,7 @@ const Dialogs = ({ items, user, onChange, inputValue }) => {
           orderBy(
             items,
             (item) => {
-              return Date.parse(item.createdAt);
+              return Date.parse(item.updatedAt);
             },
             'desc',
           ).map((item) => (

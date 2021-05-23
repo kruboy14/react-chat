@@ -14,6 +14,7 @@ const Dialogs = () => {
   const user = useSelector(selectUserData);
   const dispatch = useDispatch();
 
+  
   React.useEffect(() => {
     socket.on('SERVER:DIALOG_CREATED', (data) => {
       dispatch(dialogsActions.fetchDialogs());
