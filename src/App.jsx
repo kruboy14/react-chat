@@ -8,15 +8,15 @@ const App = () => {
   const isAuth = useSelector(selectUserAuth);
   return (
     <div className="wrapper">
-        {isAuth ? <Redirect to="/" /> : <Redirect to="/login" />}
+        {isAuth ? <Redirect to="/dialog" /> : <Redirect to="/login" />}
       <Switch>
         <Route
           exact
-          path={[ '/login', '/signup', '/register', '/register/verify']}
+          path={[ '/','/login', '/signup', '/register', '/register/verify']}
           component={Auth}
         />
 
-        <Route path={['/', '/dialog/:id']} component={Home} />
+        <Route path={['/dialog', '/dialog/:id']} component={Home} />
       </Switch>
     </div>
   );

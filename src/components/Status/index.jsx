@@ -13,7 +13,7 @@ const Status = () => {
   const currentDialogID = useSelector(selectCurrentDialogID);
   const user = useSelector(selectUserData);
   const allDialogs = useSelector(selectAllDialogs);
-
+  console.log(allDialogs, currentDialogID);
   if (!allDialogs || !currentDialogID) {
     return <div />;
   }

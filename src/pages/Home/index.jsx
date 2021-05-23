@@ -32,7 +32,7 @@ const Home = () => {
         <div className="chat__dialog">
           <div className="chat__dialog-header">
             <div></div>
-            <Status />
+            {currentDialogID && currentDialogID !== "dialog" && <Status />}
             {currentDialogID && (
               <Button type="text" icon={<EllipsisOutlined />} />
             )}
