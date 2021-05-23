@@ -9,5 +9,6 @@ const messagesApi = {
       dialog_id: dialogiID,
       attachments
     }),
+  unreadMsg: (dialogId, userId) => axios.get(`/messages/unreadMsg?dialogId=${dialogId}&userId=${userId}` )
 };
 export default messagesApi;

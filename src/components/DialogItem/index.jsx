@@ -13,6 +13,7 @@ import { selectCurrentDialogID } from '../../redux/selectors';
 import { Link } from 'react-router-dom';
 import reactStringReplace from 'react-string-replace';
 import { Emoji } from 'emoji-mart';
+import { dialogsApi, messagesApi } from '../../utils/api';
 
 const getMessageTime = (createdAt) => {
   if (typeof createdAt === 'string') {
@@ -27,25 +28,37 @@ const getMessageTime = (createdAt) => {
   }
 };
 
-const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
-  const dispatch = useDispatch()
+const DialogItem = ({ _id, user, message, isMe, onSelect }) => {
+  const dispatch = useDispatch();
+  const [newMessage, setNewMessage] = React.useState(null);
+  const [unread, setUnread] = React.useState(null);
   const currentDialogID = useSelector(selectCurrentDialogID);
-  const handleMsgCreated= (msg) => {
-    dispatch(dialogsActions.fetchDialogs())
-    console.log( user.id);
-    console.log(_id);
+  const handleMsgCreated = async (msg) => {
+    await dispatch(dialogsActions.fetchDialogs());
+    const { data } = await messagesApi.unreadMsg(_id, user._id);
+    console.log(currentDialogID === _id);
+    if (currentDialogID === _id) {
+      setNewMessage(0);
+    } else {
+      setNewMessage(data);
+    }
+  };
 
-  } 
   React.useEffect(() => {
     (async () => {
       socket.emit('room', _id);
       socket.on(`SERVER:MESSAGE_CREATED/${_id}`, handleMsgCreated);
     })();
-    return () => {
-      socket.emit('room', _id);
-      socket.off(`SERVER:MESSAGE_CREATED/${_id}`, handleMsgCreated);
-    };
+    // return () => {
+    //   socket.emit('room', _id);
+    //   socket.off(`SERVER:MESSAGE_CREATED/${_id}`, handleMsgCreated);
+    // };
   }, [_id]);
+  React.useEffect(() => {
+    if (currentDialogID === _id) {
+      setNewMessage(0);
+    }
+  }, [currentDialogID, _id]);
   return (
     <Link to={`/dialog/${_id}`}>
       <div
@@ -68,18 +81,22 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
           </div>
           <div className="dialog__item-content-bottom">
             <div className="dialog__item-content-text">
-              <p>
-                {reactStringReplace(message.text, /:(.+?):/g, (match, i) => (
-                  <Emoji key={i} emoji={match} set="apple" size={16} />
-                ))}
-              </p>
+              {message.attachments?.length > 0 ? (
+                <p>File</p>
+              ) : (
+                <p>
+                  {reactStringReplace(message.text, /:(.+?):/g, (match, i) => (
+                    <Emoji key={i} emoji={match} set="apple" size={16} />
+                  ))}
+                </p>
+              )}
             </div>
             <div className="dialog__item-content-tick">
               {isMe && <IconRead isRead={message.read} />}
             </div>
-            {unread > 0 && (
+            {newMessage > 0 && (
               <div className="dialog__item-content-count">
-                {unread > 9 ? '+9' : unread}
+                {newMessage > 9 ? '+9' : newMessage}
               </div>
             )}
           </div>
@@ -89,4 +106,4 @@ const DialogItem = ({ _id, user, message, unread, isMe, onSelect }) => {
   );
 };
 
-export default React.memo(DialogItem);
+export default DialogItem;
