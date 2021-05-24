@@ -15,6 +15,7 @@ const Actions = {
       if (response.status === 403) {
         dispatch(Actions.setIsAuth(false));
         delete window.localStorage['token'];
+        console.log(1);
       }
     }
   },

@@ -2,7 +2,7 @@
   "name": "react-chat",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3333",
+  "proxy": "https://react-chat-hard-back.herokuapp.com",
   "homepage": "http://localhost:3000",
   "dependencies": {
     "@babel/core": "7.12.3",
