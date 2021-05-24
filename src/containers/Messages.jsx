@@ -37,7 +37,7 @@ const Messages = () => {
       }
     };
     (async () => {
-      if (currentDialogID) {
+      if (currentDialogID && currentDialogID !== 'dialog') {
         await dispatch(messagesActions.fetchMessages(currentDialogID));
 
         // socket.emit('room', currentDialogID);
