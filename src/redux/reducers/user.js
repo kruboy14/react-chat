@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 const initialState = {
-  data: null,
+  data: {},
   isAuth: window.localStorage.token ? true : false,
   // isAuth: false,
   token: window.localStorage.token,

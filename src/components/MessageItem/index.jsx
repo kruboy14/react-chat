@@ -62,7 +62,7 @@ const MessageItem = ({
       <div className="message__item">
         {(text || isTyping) && (
           <div className={classNames("message__bubble",{ 'me': isMe })}>
-            {text ?? (
+            {text && (
               <p className="message__text">
                 {reactStringReplace(text, /:(.+?):/g, (match, i) => (
                   <Emoji key={i} emoji={match} set="apple" size={16} />
