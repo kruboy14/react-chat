@@ -44,7 +44,7 @@ const Home = () => {
                 inputHeight && checker !== 0 ? '275px' : '175px'
               })`,
             }}>
-            {currentDialogID ? (
+            {currentDialogID  && currentDialogID !== "dialog" ? (
               <Messages />
             ) : (
               <Empty description="Open dialog" />
