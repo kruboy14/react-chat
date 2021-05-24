@@ -3,7 +3,7 @@ import { userApi } from 'utils/api';
 import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 import { openNotification } from 'utils/helpers';
-import { Redirect } from 'react-router';
+
 
 const Actions = {
   setUserData: createAction(USER_SET_DATA),
@@ -16,7 +16,6 @@ const Actions = {
       if (response.status === 403) {
         dispatch(Actions.setIsAuth(false));
         delete window.localStorage['token'];
-        console.log(1);
       }
     }
   },
@@ -48,7 +47,7 @@ const Actions = {
         text: 'Successful Registration',
         type: 'success',
       });
-      <Redirect to="/login" />
+      window.location.pathname = '/login';
     } catch ({ response }) {
       console.log(response);
       openNotification({
