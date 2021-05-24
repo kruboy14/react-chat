@@ -3,6 +3,7 @@ import { userApi } from 'utils/api';
 import { USER_SET_DATA, USER_SET_IS_AUTH } from '../actionsTypes';
 
 import { openNotification } from 'utils/helpers';
+import { Redirect } from 'react-router';
 
 const Actions = {
   setUserData: createAction(USER_SET_DATA),
@@ -42,6 +43,12 @@ const Actions = {
     try {
       const { data } = await userApi.register(postData);
       console.log('register', data);
+      openNotification({
+        title: 'Success',
+        text: 'Successful Registration',
+        type: 'success',
+      });
+      <Redirect to="/login" />
     } catch ({ response }) {
       console.log(response);
       openNotification({
